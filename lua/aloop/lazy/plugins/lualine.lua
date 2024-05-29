@@ -10,5 +10,6 @@ return {
         'NvimTree',
       },
     },
+    theme = 'catppuccin',
   },
 }

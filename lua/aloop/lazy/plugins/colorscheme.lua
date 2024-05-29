@@ -14,6 +14,32 @@ return {
         functions = { 'bold' },
         keywords = { 'bold' },
       },
+      integrations = {
+        telescope = {
+          enabled = true,
+        },
+        native_lsp = {
+          enabled = true,
+        },
+        illuminate = {
+          enabled = true,
+        },
+        mini = {
+          enabled = true,
+        },
+        treesitter = true,
+        cmp = true,
+        lsp_trouble = true,
+        gitsigns = true,
+        neogit = true,
+        diffview = true,
+        noice = true,
+        notify = true,
+        fidget = true,
+        which_key = true,
+        mason = true,
+        markdown = true,
+      },
     },
     init = function()
       vim.cmd.colorscheme('catppuccin')

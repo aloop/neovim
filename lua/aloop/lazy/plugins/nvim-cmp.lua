@@ -26,11 +26,12 @@ return {
         },
       },
     },
-    'saadparwaiz1/cmp_luasnip',
 
+    'saadparwaiz1/cmp_luasnip',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
+
     'onsails/lspkind.nvim',
   },
   config = function()
@@ -48,8 +49,31 @@ return {
 
       completion = { completeopt = 'menu,menuone,noinsert' },
 
+      sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'path' },
+        { name = 'buffer' },
+      },
+
       formatting = {
         format = lspkind.cmp_format(),
+      },
+
+      view = {
+        entries = {
+          follow_cursor = true,
+        },
+      },
+
+      window = {
+        completion = {
+          border = 'rounded',
+          scrolloff = 2,
+        },
+        documentation = {
+          border = 'rounded',
+        },
       },
 
       mapping = cmp.mapping.preset.insert({
@@ -62,7 +86,7 @@ return {
         ['<C-y>'] = cmp.mapping.confirm({ select = false }),
         ['<cr>'] = cmp.mapping.confirm({ select = false }),
 
-        ['<C-Space>'] = cmp.mapping.complete({}),
+        ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
 
         ['<C-l>'] = cmp.mapping(function()
@@ -76,13 +100,6 @@ return {
           end
         end, { 'i', 's' }),
       }),
-
-      sources = {
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'path' },
-        { name = 'buffer' },
-      },
     })
   end,
 }
