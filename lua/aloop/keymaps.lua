@@ -45,13 +45,13 @@ smap('v', '>', '>gv')
 smap('v', '<', '<gv')
 
 -- loclist navigation
-smap('n', '[l', '<cmd>lprev<cr>')
-smap('n', ']l', '<cmd>lnext<cr>')
-smap('n', '[L', '<cmd>lolder<cr>')
-smap('n', ']L', '<cmd>lnewer<cr>')
+smap('n', '[l', '<cmd>lprev<cr>', 'Previous loclist item')
+smap('n', ']l', '<cmd>lnext<cr>', 'Next loclist item')
+smap('n', '[L', '<cmd>lolder<cr>', 'Older loclist item')
+smap('n', ']L', '<cmd>lnewer<cr>', 'Newer loclist item')
 
 -- quickfix navigation
-smap('n', '[q', '<cmd>cprev<cr>')
-smap('n', ']q', '<cmd>cnext<cr>')
-smap('n', '[Q', '<cmd>qolder<cr>')
-smap('n', ']Q', '<cmd>qnewer<cr>')
+smap('n', '[q', '<cmd>cprev<cr>', 'Previous quickfix item')
+smap('n', ']q', '<cmd>cnext<cr>', 'Next quickfix item')
+smap('n', '[Q', '<cmd>qolder<cr>', 'Older quickfix item')
+smap('n', ']Q', '<cmd>qnewer<cr>', 'Newer quickfix item')

@@ -63,7 +63,7 @@ return {
       function()
         telescope_project_files({ hidden = true })
       end,
-      { desc = 'Fuzzy find files' },
+      desc = 'Fuzzy find files',
     },
     { '<leader>?', '<cmd>Telescope oldfiles<cr>', desc = 'Search through recent files' },
     { '<leader>fg', '<cmd>Telescope live_grep<cr>', desc = 'Grep through files under cwd' },
