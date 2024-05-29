@@ -1,4 +1,14 @@
-local set = vim.keymap.set
+local function next()
+  local trouble = require('trouble')
+  trouble.open()
+  trouble.next({ skip_groups = true, jump = true })
+end
+
+local function previous()
+  local trouble = require('trouble')
+  trouble.open()
+  trouble.previous({ skip_groups = true, jump = true })
+end
 
 return {
   'folke/trouble.nvim',
@@ -13,5 +23,7 @@ return {
     { 'gd', '<cmd>TroubleToggle lsp_definitions<cr>', { desc = 'LSP definitions list' } },
     { 'gD', '<cmd>TroubleToggle lsp_references<cr>', { desc = 'LSP references list' } },
     { 'gt', '<cmd>TroubleToggle lsp_type_definitions<cr>', { desc = 'LSP references list' } },
+    { '[t', next, { desc = 'Next Trouble item' } },
+    { ']t', previous, { desc = 'Previous Trouble item' } },
   },
 }
