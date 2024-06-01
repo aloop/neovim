@@ -34,6 +34,23 @@ return {
   cmd = 'Telescope',
   opts = {
     defaults = {
+      layout_strategy = 'flex',
+      layout_config = {
+        width = 0.95,
+        height = 0.95,
+        prompt_position = 'top',
+        preview_cutoff = 120,
+        horizontal = {
+          preview_width = 0.6,
+        },
+        vertical = {
+          preview_cutoff = 2,
+          mirror = true,
+        },
+        flex = {
+          flip_columns = 150,
+        },
+      },
       hidden = true,
       mappings = {
         i = {
