@@ -1,14 +1,14 @@
 return {
-  'stevearc/conform.nvim',
-  event = { 'BufWritePre' },
-  cmd = { 'ConformInfo' },
+  "stevearc/conform.nvim",
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
   opts = {
     formatters_by_ft = {
-      go = { 'goimports-reviser', 'gofumpt', 'golines' },
-      javascript = { { 'prettierd', 'prettier' } },
-      lua = { 'stylua' },
-      nix = { 'nixfmt' },
-      python = { 'isort', 'ruff' },
+      go = { "goimports-reviser", "gofumpt", "golines" },
+      javascript = { { "prettierd", "prettier" } },
+      lua = { "stylua" },
+      nix = { "nixfmt" },
+      python = { "isort", "ruff" },
     },
     format_on_save = { timeout_ms = 500, lsp_fallback = true },
     formatters = {},

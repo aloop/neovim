@@ -1,18 +1,18 @@
 return {
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
     opts = {
-      flavour = 'macchiato',
+      flavour = "macchiato",
       background = {
-        dark = 'macchiato',
+        dark = "macchiato",
       },
       transparent_background = true,
       term_colors = true,
       styles = {
-        functions = { 'bold' },
-        keywords = { 'bold' },
+        functions = { "bold" },
+        keywords = { "bold" },
       },
       integrations = {
         telescope = {
@@ -42,7 +42,7 @@ return {
       },
     },
     init = function()
-      vim.cmd.colorscheme('catppuccin')
+      vim.cmd.colorscheme("catppuccin")
     end,
   },
 }

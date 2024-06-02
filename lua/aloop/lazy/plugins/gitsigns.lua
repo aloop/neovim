@@ -1,82 +1,82 @@
 return {
-  'lewis6991/gitsigns.nvim',
-  name = 'gitsigns',
-  version = '*',
-  event = { 'BufReadPre', 'BufNewFile' },
-  cmd = 'Gitsigns',
+  "lewis6991/gitsigns.nvim",
+  name = "gitsigns",
+  version = "*",
+  event = { "BufReadPre", "BufNewFile" },
+  cmd = "Gitsigns",
   opts = {},
   keys = {
     -- Normal Mode Bindings
     {
-      '<leader>hs',
+      "<leader>hs",
       function()
-        require('gitsigns').stage_hunk()
+        require("gitsigns").stage_hunk()
       end,
-      desc = 'git [s]tage hunk',
+      desc = "git [s]tage hunk",
     },
     {
-      '<leader>hS',
+      "<leader>hS",
       function()
-        require('gitsigns').stage_buffer()
+        require("gitsigns").stage_buffer()
       end,
-      desc = 'git [s]tage buffer',
+      desc = "git [s]tage buffer",
     },
     {
-      '<leader>hu',
+      "<leader>hu",
       function()
-        require('gitsigns').undo_stage_hunk()
+        require("gitsigns").undo_stage_hunk()
       end,
-      desc = 'git [u]ndo stage hunk',
+      desc = "git [u]ndo stage hunk",
     },
     {
-      '<leader>hr',
+      "<leader>hr",
       function()
-        require('gitsigns').reset_hunk()
+        require("gitsigns").reset_hunk()
       end,
-      desc = 'git reset hunk',
+      desc = "git reset hunk",
     },
     {
-      '<leader>hR',
+      "<leader>hR",
       function()
-        require('gitsigns').reset_buffer()
+        require("gitsigns").reset_buffer()
       end,
-      desc = 'git [r]eset buffer',
+      desc = "git [r]eset buffer",
     },
     {
-      '<leader>hp',
+      "<leader>hp",
       function()
-        require('gitsigns').preview_hunk()
+        require("gitsigns").preview_hunk()
       end,
-      desc = 'git [p]review hunk',
+      desc = "git [p]review hunk",
     },
     {
-      '<leader>hb',
+      "<leader>hb",
       function()
-        require('gitsigns').blame_line()
+        require("gitsigns").blame_line()
       end,
-      desc = 'git [b]lame line',
+      desc = "git [b]lame line",
     },
     {
-      '<leader>hd',
+      "<leader>hd",
       function()
-        require('gitsigns').diffthis()
+        require("gitsigns").diffthis()
       end,
-      desc = 'git [d]iff against index',
+      desc = "git [d]iff against index",
     },
     {
-      '<leader>hD',
+      "<leader>hD",
       function()
-        require('gitsigns').diffthis('@')
+        require("gitsigns").diffthis("@")
       end,
-      desc = 'git [d][iff against last commit',
+      desc = "git [d][iff against last commit",
     },
   },
   init = function()
-    vim.keymap.set('v', '<leader>hs', function()
-      require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-    end, { desc = 'git [s]tage hunk' })
-    vim.keymap.set('v', '<leader>hr', function()
-      require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-    end, { desc = 'git [r]eset hunk' })
+    vim.keymap.set("v", "<leader>hs", function()
+      require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+    end, { desc = "git [s]tage hunk" })
+    vim.keymap.set("v", "<leader>hr", function()
+      require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+    end, { desc = "git [r]eset hunk" })
   end,
 }

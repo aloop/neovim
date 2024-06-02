@@ -3,13 +3,13 @@ local opt = vim.opt
 opt.number = true
 opt.relativenumber = true
 opt.cursorline = true
-opt.colorcolumn = '121'
+opt.colorcolumn = "121"
 opt.linespace = 5
 opt.scrolloff = 10
 opt.sidescrolloff = 7
 opt.title = true
 opt.hidden = true
-opt.inccommand = 'split'
+opt.inccommand = "split"
 opt.breakindent = true
 opt.wrap = false
 
@@ -19,18 +19,18 @@ opt.termguicolors = true
 opt.updatetime = 100
 
 -- Use the system clipboard
-opt.clipboard = 'unnamedplus'
+opt.clipboard = "unnamedplus"
 
 -- Prefer a unix file-type
-opt.ffs = 'unix,dos,mac'
+opt.ffs = "unix,dos,mac"
 
 -- Set encoding type
-opt.fileencoding = 'utf-8'
+opt.fileencoding = "utf-8"
 
 -- Configure and enable listchars/fillchars
 opt.list = true
-opt.listchars = 'tab:»-,trail:·,extends:»,precedes:«,nbsp:␣'
-opt.fillchars = 'eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:⏵'
+opt.listchars = "tab:»-,trail:·,extends:»,precedes:«,nbsp:␣"
+opt.fillchars = "eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:⏵"
 
 -- Disable swap files
 opt.writebackup = false
@@ -38,14 +38,14 @@ opt.swapfile = false
 opt.backup = false
 
 -- Show the signcolumn always
-opt.signcolumn = 'yes'
+opt.signcolumn = "yes"
 
 -- Split configuration
 opt.splitbelow = true
 opt.splitright = true
 
 -- Fold settings
-opt.foldmethod = 'syntax'
+opt.foldmethod = "syntax"
 opt.foldlevelstart = 99
 
 -- Indentation Settings
@@ -90,7 +90,7 @@ opt.timeout = true
 opt.timeoutlen = 300
 
 -- Enable mouse for lazy resizing mainly
-opt.mouse = 'a'
+opt.mouse = "a"
 opt.mousemoveevent = true
 
 -- Our statusline already shows the current mode
