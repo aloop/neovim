@@ -95,9 +95,9 @@ return {
     { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Search Command History" },
     { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy search in current buffer" },
     { "<leader>td", "<cmd>Telescope diagnostics<cr>", desc = "Show diagnostics" },
-    { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "LSP definitions list" },
-    { "gr", "<cmd>Telescope lsp_references<cr>", desc = "LSP references list" },
-    { "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "LSP implementations list" },
-    { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "LSP type definitions list" },
+    { "<leader>gd", "<cmd>Telescope lsp_definitions<cr>", desc = "LSP definitions list" },
+    { "<leader>gr", "<cmd>Telescope lsp_references<cr>", desc = "LSP references list" },
+    { "<leader>gi", "<cmd>Telescope lsp_implementations<cr>", desc = "LSP implementations list" },
+    { "<leader>gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "LSP type definitions list" },
   },
 }
