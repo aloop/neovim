@@ -65,7 +65,6 @@
                       type = "lua";
                       config = # lua
                         ''
-                          vim.opt.runtimepath:append('${nvim-treesitter.withAllGrammars}')
                           vim.opt.runtimepath:append('${treesitter-parsers}')
                           require('nvim-treesitter.configs').setup(require('aloop.lazy.plugins.treesitter').opts)
                         '';
@@ -82,6 +81,7 @@
                     '';
 
                   extraPackages = with pkgs; [
+                    tree-sitter
                     gcc
                     gnumake
                     git

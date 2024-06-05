@@ -30,9 +30,6 @@ return {
           return "make"
         end
       end)(),
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
     },
   },
   cmd = "Telescope",
@@ -68,6 +65,9 @@ return {
           ["<c-t>"] = open_with_trouble,
         },
       },
+      init = function()
+        pcall(require("telescope").load_extension, "fzf")
+      end,
     },
     pickers = {
       git_files = {
