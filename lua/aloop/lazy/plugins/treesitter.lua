@@ -1,10 +1,9 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  enabled = not vim.g.is_nix,
   build = ":TSUpdate",
   opts = {
-    ensure_installed = vim.g.is_nix and {} or { "c", "lua", "vim", "vimdoc", "query" },
-    auto_install = not vim.g.is_nix,
+    ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+    auto_install = true,
     highlight = {
       enable = true,
     },

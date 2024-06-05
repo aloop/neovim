@@ -47,78 +47,60 @@
                 "nvim/lazy/telescope-fzf-native.nvim/build/libfzf.so".source = "${pkgs.vimPlugins.telescope-fzf-native-nvim}/build/libfzf.so";
               };
 
-              programs.neovim =
-                let
-                  treesitter-parsers = pkgs.symlinkJoin {
-                    name = "treesitter-parsers";
-                    paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-                  };
-                in
-                {
-                  enable = true;
-                  withPython3 = true;
-                  withNodeJs = true;
+              programs.neovim = {
+                enable = true;
+                withPython3 = true;
+                withNodeJs = true;
 
-                  plugins = with pkgs.vimPlugins; [
-                    {
-                      plugin = nvim-treesitter.withAllGrammars;
-                      type = "lua";
-                      config = # lua
-                        ''
-                          vim.opt.runtimepath:append('${treesitter-parsers}')
-                          require('nvim-treesitter.configs').setup(require('aloop.lazy.plugins.treesitter').opts)
-                        '';
-                    }
-                    luasnip
-                  ];
+                plugins = with pkgs.vimPlugins; [ luasnip ];
 
-                  extraLuaConfig = # lua
-                    ''
-                      -- Indicate that the nvim config is being run under a Nix/NixOS env
-                      vim.g.is_nix = true
-                      -- Load my configuration
-                      require('aloop')
-                    '';
+                extraLuaConfig = # lua
+                  ''
+                    -- Indicate that the nvim config is being run under a Nix/NixOS env
+                    vim.g.is_nix = true
+                    -- Load my configuration
+                    require('aloop')
+                  '';
 
-                  extraPackages = with pkgs; [
-                    tree-sitter
-                    gcc
-                    gnumake
-                    git
-                    ripgrep
-                    fd
-                    jq
-                    lua-language-server
-                    gopls
-                    golangci-lint-langserver
-                    gofumpt
-                    golines
-                    goimports-reviser
-                    templ
-                    gleam
-                    stylua
-                    vscode-langservers-extracted
-                    nodePackages.bash-language-server
-                    nodePackages.typescript-language-server
-                    nodePackages."@tailwindcss/language-server"
-                    nodePackages."@astrojs/language-server"
-                    nodePackages.svelte-language-server
-                    prettierd
-                    nodePackages.prettier
-                    htmx-lsp
-                    yaml-language-server
-                    marksman
-                    phpactor
-                    isort
-                    ruff
-                    shellcheck
-                    shfmt
-                    dockerfile-language-server-nodejs
-                    elixir-ls
-                    nixd
-                    nixfmt-rfc-style
-                  ];
-                };
+                extraPackages = with pkgs; [
+                  tree-sitter
+                  gcc
+                  gnumake
+                  git
+                  ripgrep
+                  fd
+                  jq
+                  lua-language-server
+                  gopls
+                  golangci-lint-langserver
+                  gofumpt
+                  golines
+                  goimports-reviser
+                  templ
+                  gleam
+                  stylua
+                  vscode-langservers-extracted
+                  nodePackages.bash-language-server
+                  nodePackages.typescript-language-server
+                  nodePackages."@tailwindcss/language-server"
+                  nodePackages."@astrojs/language-server"
+                  nodePackages.svelte-language-server
+                  prettierd
+                  nodePackages.prettier
+                  htmx-lsp
+                  yaml-language-server
+                  marksman
+                  phpactor
+                  isort
+                  ruff
+                  shellcheck
+                  shfmt
+                  dockerfile-language-server-nodejs
+                  elixir-ls
+                  nixd
+                  nixfmt-rfc-style
+                ];
+              };
             };
           };
       };
