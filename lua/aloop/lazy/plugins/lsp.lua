@@ -58,7 +58,6 @@ return {
       dockerls = {},
       jsonls = {},
       yamlls = {},
-      nixd = {},
       marksman = {},
       astro = {},
       html = {},
@@ -70,6 +69,25 @@ return {
       -- phpactor = {},
       golangci_lint_ls = {},
       gleam = {},
+
+      nixd = {
+        settings = {
+          nixd = {
+            formatting = {
+              command = { "nixpkgs-fmt" },
+            },
+            diagnostic = {
+              suppress = {
+                -- "sema-escaping-with",
+                -- "sema-def-not-used",
+              },
+            },
+          },
+        },
+        on_attach = function()
+          vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+        end,
+      },
 
       gopls = {
         settings = {
