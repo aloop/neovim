@@ -15,6 +15,14 @@ return {
       desc = "git [s]tage hunk",
     },
     {
+      "<leader>hs",
+      function()
+        require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+      end,
+      mode = "v",
+      desc = "git [s]tage hunk",
+    },
+    {
       "<leader>hS",
       function()
         require("gitsigns").stage_buffer()
@@ -34,6 +42,14 @@ return {
         require("gitsigns").reset_hunk()
       end,
       desc = "git reset hunk",
+    },
+    {
+      "<leader>hr",
+      function()
+        require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+      end,
+      mode = "v",
+      desc = "git [r]eset hunk",
     },
     {
       "<leader>hR",
@@ -70,13 +86,19 @@ return {
       end,
       desc = "git [d][iff against last commit",
     },
+    {
+      "]g",
+      function()
+        require("gitsigns").next_hunk()
+      end,
+      desc = "go to next [g]it hunk",
+    },
+    {
+      "[g",
+      function()
+        require("gitsigns").prev_hunk()
+      end,
+      desc = "go to previous [g]it hunk",
+    },
   },
-  init = function()
-    vim.keymap.set("v", "<leader>hs", function()
-      require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-    end, { desc = "git [s]tage hunk" })
-    vim.keymap.set("v", "<leader>hr", function()
-      require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-    end, { desc = "git [r]eset hunk" })
-  end,
 }
