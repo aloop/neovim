@@ -80,7 +80,7 @@
                   gleam
                   stylua
                   vscode-langservers-extracted
-                  nodePackages.bash-language-server
+                  bash-language-server
                   nodePackages.typescript-language-server
                   nodePackages."@tailwindcss/language-server"
                   nodePackages."@astrojs/language-server"
