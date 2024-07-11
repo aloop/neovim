@@ -90,7 +90,7 @@
                   htmx-lsp
                   yaml-language-server
                   marksman
-                  phpactor
+                  #phpactor
                   isort
                   ruff
                   shellcheck
