@@ -47,6 +47,10 @@
                 "nvim/lazy/telescope-fzf-native.nvim/build/libfzf.so".source = "${pkgs.vimPlugins.telescope-fzf-native-nvim}/build/libfzf.so";
               };
 
+              home.sessionVariables = {
+                NIX_NEOVIM = 1;
+              };
+
               programs.neovim = {
                 enable = true;
                 withPython3 = true;
@@ -54,13 +58,7 @@
 
                 plugins = with pkgs.vimPlugins; [ luasnip ];
 
-                extraLuaConfig = # lua
-                  ''
-                    -- Indicate that the nvim config is being run under a Nix/NixOS env
-                    vim.g.is_nix = true
-                    -- Load my configuration
-                    require('aloop')
-                  '';
+                extraLuaConfig = lib.readFile ./init.lua;
 
                 extraPackages = with pkgs; [
                   tree-sitter
