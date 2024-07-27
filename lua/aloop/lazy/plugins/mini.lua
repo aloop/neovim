@@ -4,6 +4,9 @@ return {
     require("mini.ai").setup()
     require("mini.surround").setup()
     require("mini.splitjoin").setup()
+    require("mini.sessions").setup({
+      autoread = true,
+    })
 
     local starter = require("mini.starter")
     starter.setup({
