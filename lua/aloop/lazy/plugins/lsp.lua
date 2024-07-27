@@ -66,7 +66,7 @@ return {
       svelte = {},
       tailwindcss = {},
       ruff = {},
-      -- phpactor = {},
+      phpactor = {},
       golangci_lint_ls = {},
       gleam = {},
 

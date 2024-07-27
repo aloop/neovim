@@ -79,6 +79,7 @@
                   stylua
                   vscode-langservers-extracted
                   bash-language-server
+                  typescript
                   nodePackages.typescript-language-server
                   nodePackages."@tailwindcss/language-server"
                   nodePackages."@astrojs/language-server"
@@ -88,7 +89,7 @@
                   htmx-lsp
                   yaml-language-server
                   marksman
-                  #phpactor
+                  phpactor
                   isort
                   ruff
                   shellcheck
