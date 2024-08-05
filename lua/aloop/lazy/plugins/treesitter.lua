@@ -1,3 +1,9 @@
+local default_parsers = { "c", "lua", "vim", "vimdoc", "query", "json", "yaml", "nix", "go", "javascript", "typescript", "tsx", "html" }
+
+if not vim.g.is_nix then
+  default_parsers = {}
+end
+
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
@@ -5,8 +11,8 @@ return {
     "hiphish/rainbow-delimiters.nvim",
   },
   opts = {
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "json", "yaml", "nix", "go", "javascript", "typescript", "tsx", "html" },
-    auto_install = true,
+    ensure_installed = default_parsers,
+    auto_install = not vim.g.is_nix,
     highlight = {
       enable = true,
     },
