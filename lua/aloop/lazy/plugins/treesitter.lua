@@ -5,7 +5,7 @@ return {
     "hiphish/rainbow-delimiters.nvim",
   },
   opts = {
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "json", "yaml", "nix", "go", "javascript", "typescript", "tsx" },
+    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "json", "yaml", "nix", "go", "javascript", "typescript", "tsx", "html" },
     auto_install = true,
     highlight = {
       enable = true,
