@@ -56,10 +56,7 @@
                 withPython3 = true;
                 withNodeJs = true;
 
-                plugins = with pkgs.vimPlugins; [
-                  luasnip
-                  nvim-treesitter.withAllGrammars
-                ];
+                plugins = with pkgs.vimPlugins; [ luasnip ];
 
                 extraLuaConfig = lib.readFile ./init.lua;
 

@@ -1,8 +1,18 @@
-local default_parsers = { "c", "lua", "vim", "vimdoc", "query", "json", "yaml", "nix", "go", "javascript", "typescript", "tsx", "html" }
-
-if not vim.g.is_nix then
-  default_parsers = {}
-end
+local default_parsers = {
+  "c",
+  "lua",
+  "vim",
+  "vimdoc",
+  "query",
+  "json",
+  "yaml",
+  "nix",
+  "go",
+  "javascript",
+  "typescript",
+  "tsx",
+  "html",
+}
 
 return {
   "nvim-treesitter/nvim-treesitter",
@@ -12,7 +22,7 @@ return {
   },
   opts = {
     ensure_installed = default_parsers,
-    auto_install = not vim.g.is_nix,
+    auto_install = true,
     highlight = {
       enable = true,
     },
