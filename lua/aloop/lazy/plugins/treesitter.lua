@@ -12,6 +12,7 @@ local default_parsers = {
   "typescript",
   "tsx",
   "html",
+  "css",
 }
 
 return {
