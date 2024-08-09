@@ -56,9 +56,7 @@ return {
       hidden = true,
       mappings = {
         i = {
-          ["<esc>"] = function(...)
-            require("telescope.actions").close(...)
-          end,
+          ["<esc>"] = require("telescope.actions").close,
           ["<c-t>"] = open_with_trouble,
         },
         n = {
@@ -72,6 +70,13 @@ return {
     pickers = {
       git_files = {
         show_untracked = true,
+      },
+      buffers = {
+        mappings = {
+          i = {
+            ["<M-d>"] = require("telescope.actions").delete_buffer,
+          },
+        },
       },
     },
   },
