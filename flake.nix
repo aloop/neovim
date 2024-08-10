@@ -80,10 +80,10 @@
                   vscode-langservers-extracted
                   bash-language-server
                   typescript
-                  nodePackages.typescript-language-server
-                  nodePackages."@tailwindcss/language-server"
-                  nodePackages."@astrojs/language-server"
-                  nodePackages.svelte-language-server
+                  typescript-language-server
+                  tailwindcss-language-server
+                  astro-language-server
+                  svelte-language-server
                   prettierd
                   nodePackages.prettier
                   htmx-lsp
