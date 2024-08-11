@@ -49,10 +49,6 @@
 
               home.sessionVariables = {
                 NIX_NEOVIM = 1;
-                NIX_NEOVIM_TREESITTER_PARSERS_PATH = pkgs.symlinkJoin {
-                  name = "treesitter-parsers";
-                  paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-                };
               };
 
               programs.neovim = {
