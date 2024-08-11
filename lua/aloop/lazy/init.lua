@@ -20,5 +20,8 @@ require("lazy").setup({
   },
   performance = {
     reset_packpath = not vim.g.is_nix,
+    rtp = {
+      reset = not vim.g.is_nix,
+    },
   },
 })
