@@ -15,6 +15,10 @@ local default_parsers = {
   "css",
 }
 
+if vim.g.is_nix then
+  default_parsers = {}
+end
+
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
@@ -23,7 +27,7 @@ return {
   },
   opts = {
     ensure_installed = default_parsers,
-    auto_install = true,
+    auto_install = not vim.g.is_nix,
     highlight = {
       enable = true,
     },

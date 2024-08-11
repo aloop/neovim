@@ -49,6 +49,10 @@
 
               home.sessionVariables = {
                 NIX_NEOVIM = 1;
+                NIX_NEOVIM_TREESITTER_PARSERS_PATH = pkgs.symlinkJoin {
+                  name = "treesitter-parsers";
+                  paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+                };
               };
 
               programs.neovim = {
@@ -56,7 +60,10 @@
                 withPython3 = true;
                 withNodeJs = true;
 
-                plugins = with pkgs.vimPlugins; [ luasnip ];
+                plugins = with pkgs.vimPlugins; [
+                  luasnip
+                  nvim-treesitter.withAllGrammars
+                ];
 
                 extraLuaConfig = lib.readFile ./init.lua;
 
