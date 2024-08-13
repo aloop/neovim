@@ -70,6 +70,7 @@
                   git
                   ripgrep
                   fd
+                  fzf
                   jq
                   lua-language-server
                   gopls
