@@ -27,6 +27,12 @@
                 description = "Whether or not to enable the custom neovim config.";
               };
 
+              shellAliases = mkOption {
+                type = types.bool;
+                default = true;
+                description = "Setup shell aliases for vi/vim/vimdiff";
+              };
+
               config.link = mkOption {
                 type = types.bool;
                 default = cfg.enable;
@@ -55,6 +61,10 @@
                 enable = true;
                 withPython3 = true;
                 withNodeJs = true;
+
+                viAlias = cfg.shellAliases;
+                vimAlias = cfg.shellAliases;
+                vimdiffAlias = cfg.shellAliases;
 
                 plugins = with pkgs.vimPlugins; [
                   luasnip
