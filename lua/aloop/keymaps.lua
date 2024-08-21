@@ -23,8 +23,8 @@ smap("n", "<leader>V", "<C-w>s<C-w>l", "Open a horizontal split and focus it")
 smap("n", "<A-h>", "<cmd>bp<cr>", "Go to previous buffer")
 smap("n", "<A-l>", "<cmd>bn<cr>", "Go to next buffer")
 
-map("n", "/", ':let @/=""<cr>/', { desc = "Search (and clear last search)" })
-smap("n", "<esc>", ':let @/=""<cr>', "Clear the last search")
+map("n", "/", '<cmd>let @/=""<cr>/', { desc = "Search (and clear last search)" })
+smap("n", "<esc>", '<cmd>let @/=""<cr>', "Clear the last search")
 
 -- Skip past wrapped lines
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", {
