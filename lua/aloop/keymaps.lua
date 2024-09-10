@@ -14,7 +14,7 @@ smap("n", "x", '"_x', "Don't copy single character deletions to the default buff
 smap("v", "p", '"_dP', "Paste without clobbering the register")
 
 smap("n", "<leader>z", "<cmd>undo<cr>", "Undo")
-smap("n", "<leader>Z", "<cmd>>redo<cr>", "Redo")
+smap("n", "<leader>Z", "<cmd>redo<cr>", "Redo")
 
 smap("n", "<leader>v", "<C-w>v<C-w>l", "Open a vertical split and focus it")
 smap("n", "<leader>V", "<C-w>s<C-w>l", "Open a horizontal split and focus it")
