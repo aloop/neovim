@@ -65,7 +65,10 @@ outputs = { nixpkgs, home-manager, aloop-neovim, ... }: {
 
 Custom configuration for this flake is available under `aml.programs.neovim`.
 
-Currently there are only two options:
+Currently there are the following options:
 
-- `aml.programs.neovim.enable` which defaults to `true`
-- `aml.programs.neovim.config.link` which determines whether or not you would like the `./lua` directory to be automatically linked. Defaults to the value of `aml.programs.neovim.enable`
+- `aml.programs.neovim.enable` Defaults to `true`
+- `aml.programs.neovim.shellAliases` Creates aliases in various shells for mapping neovim to vi/vim/vimdiff
+- `aml.programs.neovim.config.readOnly` Determines whether or not you would like the `./lua` directory and `./lazy-lock.json` file to be linked read-only in the nix store.
+  When false, this will still link to the `./lua` and `./lazy-lock.json` using home-manager's `mkOutOfStoreSymlink`. Defaults to true
+- `aml.programs.neovim.config.symlinkBase` The base directory to use to link `./lua` and `./lazy-lock.json` when `aml.programs.neovim.config.readOnly` is false

@@ -15,8 +15,10 @@
           }:
 
           let
+            inherit (config.lib.file) mkOutOfStoreSymlink;
             inherit (lib) types mkOption mkIf;
 
+            homeDir = config.home.homeDirectory;
             cfg = config.aml.programs.neovim;
           in
           {
@@ -33,21 +35,42 @@
                 description = "Setup shell aliases for vi/vim/vimdiff";
               };
 
-              config.link = mkOption {
-                type = types.bool;
-                default = cfg.enable;
-                description = "Disable if you would like to manually manage the ~/.config/nvim/lua link";
+              config = {
+                readOnly = mkOption {
+                  type = types.bool;
+                  default = true;
+                };
+
+                symlinkBase = mkOption {
+                  type = types.path;
+                  default = "${homeDir}/code/personal/neovim";
+                  description = "";
+                };
               };
             };
 
             config = mkIf cfg.enable {
-              # Link lua directory from my NeoVim config to ~/.config/nvim/lua
-              xdg.configFile = mkIf cfg.config.link {
-                "nvim/lua" = {
-                  source = ./lua;
-                  recursive = true;
-                };
-              };
+              xdg.configFile =
+                if cfg.config.readOnly then
+                  {
+                    "nvim/lua" = {
+                      source = ./lua;
+                      recursive = true;
+                    };
+                    "nvim/lazy-lock.json" = {
+                      source = ./lazy-lock.json;
+                    };
+                  }
+                else
+                  {
+                    "nvim/lua" = {
+                      source = mkOutOfStoreSymlink "${cfg.config.symlinkBase}/lua";
+                      recursive = true;
+                    };
+                    "nvim/lazy-lock.json" = {
+                      source = mkOutOfStoreSymlink "${cfg.config.symlinkBase}/lazy-lock.json";
+                    };
+                  };
 
               xdg.dataFile = {
                 "nvim/lazy/telescope-fzf-native.nvim/build/libfzf.so".source = "${pkgs.vimPlugins.telescope-fzf-native-nvim}/build/libfzf.so";
