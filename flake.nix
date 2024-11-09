@@ -105,6 +105,8 @@
                   fd
                   fzf
                   jq
+                  lua5_1
+                  lua51Packages.luarocks
                   lua-language-server
                   gopls
                   golangci-lint-langserver
