@@ -4,6 +4,7 @@ return {
     { "williamboman/mason.nvim", config = true, enabled = not vim.g.is_nix }, -- NOTE: Must be loaded before dependants
     { "WhoIsSethDaniel/mason-tool-installer.nvim", enabled = not vim.g.is_nix },
     { "williamboman/mason-lspconfig.nvim", enabled = not vim.g.is_nix },
+    { "saghen/blink.cmp" },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -49,7 +50,7 @@ return {
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
     local servers = {
       bashls = {},

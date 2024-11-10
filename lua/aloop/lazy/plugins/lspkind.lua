@@ -1,5 +1,6 @@
 return {
   "onsails/lspkind.nvim",
+  enabled = false,
   setup = function()
     require("lspkind").init({
       -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
