@@ -72,6 +72,7 @@ return {
         show_untracked = true,
       },
       buffers = {
+        ignore_current_buffer = true,
         mappings = {
           i = {
             ["<M-d>"] = require("telescope.actions").delete_buffer,
