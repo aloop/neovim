@@ -69,17 +69,11 @@ return {
       golangci_lint_ls = {},
       gleam = {},
 
-      nixd = {
+      nil_ls = {
         settings = {
-          nixd = {
+          ["nil"] = {
             formatting = {
-              command = { "nixpkgs-fmt" },
-            },
-            diagnostic = {
-              suppress = {
-                -- "sema-escaping-with",
-                -- "sema-def-not-used",
-              },
+              command = { "nixfmt" },
             },
           },
         },
@@ -87,6 +81,25 @@ return {
           vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
         end,
       },
+
+      -- nixd = {
+      --   settings = {
+      --     nixd = {
+      --       formatting = {
+      --         command = { "nixfmt" },
+      --       },
+      --       diagnostic = {
+      --         suppress = {
+      --           -- "sema-escaping-with",
+      --           -- "sema-def-not-used",
+      --         },
+      --       },
+      --     },
+      --   },
+      --   on_attach = function()
+      --     vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+      --   end,
+      -- },
 
       gopls = {
         settings = {
@@ -172,6 +185,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         "stylua",
+        "nil",
       })
       require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
