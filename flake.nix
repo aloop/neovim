@@ -126,6 +126,7 @@
                   prettierd
                   nodePackages.prettier
                   htmx-lsp
+                  nushell
                   yaml-language-server
                   marksman
                   phpactor
