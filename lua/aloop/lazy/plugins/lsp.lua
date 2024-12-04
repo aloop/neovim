@@ -68,7 +68,6 @@ return {
       phpactor = {},
       golangci_lint_ls = {},
       gleam = {},
-      nushell = {},
 
       nil_ls = {
         settings = {
