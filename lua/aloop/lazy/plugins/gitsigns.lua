@@ -41,7 +41,7 @@ return {
       function()
         require("gitsigns").reset_hunk()
       end,
-      desc = "git reset hunk",
+      desc = "git [r]eset hunk",
     },
     {
       "<leader>hr",
