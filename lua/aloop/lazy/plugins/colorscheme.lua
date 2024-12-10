@@ -34,7 +34,6 @@ return {
         neogit = true,
         diffview = true,
         noice = true,
-        notify = true,
         fidget = true,
         which_key = true,
         mason = true,
