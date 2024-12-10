@@ -17,6 +17,25 @@ return {
         wo = { wrap = true }, -- Wrap notifications
       },
     },
+    dashboard = {
+      preset = {
+        header = table.concat({
+          " █████╗ ██╗      ██████╗  ██████╗ ██████╗ ",
+          "██╔══██╗██║     ██╔═══██╗██╔═══██╗██╔══██╗",
+          "███████║██║     ██║   ██║██║   ██║██████╔╝",
+          "██╔══██║██║     ██║   ██║██║   ██║██╔═══╝ ",
+          "██║  ██║███████╗╚██████╔╝╚██████╔╝██║     ",
+          "╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚═╝     ",
+        }, "\n"),
+      },
+      sections = {
+        { section = "header" },
+        { icon = " ", title = "Recent Files", section = "recent_files", cwd = true, limit = 8, padding = 1 },
+        { icon = " ", title = "Projects", section = "projects", padding = 1 },
+        { section = "keys" },
+        { section = "startup" },
+      },
+    },
   },
   keys = {
     {
