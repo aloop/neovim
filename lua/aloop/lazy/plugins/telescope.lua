@@ -34,6 +34,9 @@ return {
   },
   cmd = "Telescope",
   opts = {
+    extensions = {
+      fzf = {},
+    },
     defaults = {
       layout_strategy = "flex",
       sorting_strategy = "ascending",
@@ -63,9 +66,7 @@ return {
           ["<c-t>"] = open_with_trouble,
         },
       },
-      init = function()
-        pcall(require("telescope").load_extension, "fzf")
-      end,
+      init = function() end,
     },
     pickers = {
       git_files = {
@@ -112,4 +113,9 @@ return {
     { "<leader>gi", "<cmd>Telescope lsp_implementations<cr>", desc = "LSP implementations list" },
     { "<leader>gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "LSP type definitions list" },
   },
+  config = function(_, opts)
+    require("telescope").setup(opts)
+
+    pcall(require("telescope").load_extension, "fzf")
+  end,
 }
