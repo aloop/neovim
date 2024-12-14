@@ -36,6 +36,11 @@ return {
     },
     additional_vim_regex_highlighting = false,
   },
+  init = function()
+    if vim.g.treesitter_parsers_path ~= nil then
+      vim.opt.rtp:prepend(vim.g.treesitter_parsers_path)
+    end
+  end,
   config = function(_, opts)
     require("nvim-treesitter.install").prefer_git = true
     require("nvim-treesitter.configs").setup(opts)

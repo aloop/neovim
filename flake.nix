@@ -16,7 +16,13 @@
 
           let
             inherit (config.lib.file) mkOutOfStoreSymlink;
-            inherit (lib) types mkOption mkIf;
+            inherit (lib)
+              types
+              mkOption
+              mkIf
+              concatStringsSep
+              ;
+            inherit (pkgs) symlinkJoin;
 
             homeDir = config.home.homeDirectory;
             cfg = config.aml.programs.neovim;
@@ -73,72 +79,80 @@
                   };
 
               xdg.dataFile = {
-                "nvim/lazy/telescope-fzf-native.nvim/build/libfzf.so".source = "${pkgs.vimPlugins.telescope-fzf-native-nvim}/build/libfzf.so";
+                "nvim/lazy/telescope-fzf-native.nvim/build/libfzf.so".source =
+                  "${pkgs.vimPlugins.telescope-fzf-native-nvim}/build/libfzf.so";
               };
 
               home.sessionVariables = {
                 NIX_NEOVIM = 1;
               };
 
-              programs.neovim = {
-                enable = true;
-                withPython3 = true;
-                withNodeJs = true;
+              programs.neovim =
+                let
+                  treesitterParsersPath = pkgs.symlinkJoin {
+                    name = "treesitter-parsers";
+                    paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+                  };
+                in
+                {
+                  enable = true;
+                  withPython3 = true;
+                  withNodeJs = true;
 
-                viAlias = cfg.shellAliases;
-                vimAlias = cfg.shellAliases;
-                vimdiffAlias = cfg.shellAliases;
+                  viAlias = cfg.shellAliases;
+                  vimAlias = cfg.shellAliases;
+                  vimdiffAlias = cfg.shellAliases;
 
-                plugins = with pkgs.vimPlugins; [
-                  luasnip
-                  nvim-treesitter.withAllGrammars
-                ];
+                  extraLuaConfig = concatStringsSep "\n" [
+                    (''
+                      vim.g.treesitter_parsers_path = "${treesitterParsersPath}"
+                    '')
+                    (lib.readFile ./init.lua)
+                  ];
 
-                extraLuaConfig = lib.readFile ./init.lua;
-
-                extraPackages = with pkgs; [
-                  tree-sitter
-                  gcc
-                  gnumake
-                  git
-                  ripgrep
-                  fd
-                  fzf
-                  jq
-                  lua5_1
-                  lua51Packages.luarocks
-                  lua-language-server
-                  gopls
-                  golangci-lint-langserver
-                  gofumpt
-                  golines
-                  goimports-reviser
-                  templ
-                  gleam
-                  stylua
-                  vscode-langservers-extracted
-                  bash-language-server
-                  typescript
-                  typescript-language-server
-                  tailwindcss-language-server
-                  astro-language-server
-                  svelte-language-server
-                  prettierd
-                  nodePackages.prettier
-                  htmx-lsp
-                  yaml-language-server
-                  marksman
-                  phpactor
-                  isort
-                  ruff
-                  shellcheck
-                  shfmt
-                  dockerfile-language-server-nodejs
-                  elixir-ls
-                  nil
-                  nixfmt-rfc-style
-                ];
-              };
+                  extraPackages = with pkgs; [
+                    tree-sitter
+                    gcc
+                    gnumake
+                    git
+                    ripgrep
+                    fd
+                    fzf
+                    jq
+                    lua5_1
+                    lua51Packages.luarocks
+                    lua-language-server
+                    gopls
+                    golangci-lint-langserver
+                    gofumpt
+                    golines
+                    goimports-reviser
+                    templ
+                    gleam
+                    stylua
+                    vscode-langservers-extracted
+                    bash-language-server
+                    typescript
+                    typescript-language-server
+                    tailwindcss-language-server
+                    astro-language-server
+                    svelte-language-server
+                    prettierd
+                    nodePackages.prettier
+                    htmx-lsp
+                    yaml-language-server
+                    marksman
+                    phpactor
+                    isort
+                    ruff
+                    shellcheck
+                    shfmt
+                    dockerfile-language-server-nodejs
+                    elixir-ls
+                    nil
+                    nixfmt-rfc-style
+                  ];
+                };
             };
           };
       };
