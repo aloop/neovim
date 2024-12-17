@@ -4,7 +4,13 @@ return {
   version = "*",
   event = { "BufReadPre", "BufNewFile" },
   cmd = "Gitsigns",
-  opts = {},
+  opts = {
+    numhl = true,
+    current_line_blame = true,
+    current_line_blame_opts = {
+      delay = 300,
+    },
+  },
   keys = {
     -- Normal Mode Bindings
     {
@@ -68,7 +74,7 @@ return {
     {
       "<leader>hb",
       function()
-        require("gitsigns").blame_line()
+        require("gitsigns").blame_line({ full = true })
       end,
       desc = "git [b]lame line",
     },

@@ -22,7 +22,6 @@
               mkIf
               concatStringsSep
               ;
-            inherit (pkgs) symlinkJoin;
 
             homeDir = config.home.homeDirectory;
             cfg = config.aml.programs.neovim;
