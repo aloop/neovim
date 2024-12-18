@@ -15,13 +15,7 @@ return {
         keywords = { "bold" },
       },
       integrations = {
-        telescope = {
-          enabled = true,
-        },
         native_lsp = {
-          enabled = true,
-        },
-        illuminate = {
           enabled = true,
         },
         mini = {

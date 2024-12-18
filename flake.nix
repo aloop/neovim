@@ -77,11 +77,6 @@
                     };
                   };
 
-              xdg.dataFile = {
-                "nvim/lazy/telescope-fzf-native.nvim/build/libfzf.so".source =
-                  "${pkgs.vimPlugins.telescope-fzf-native-nvim}/build/libfzf.so";
-              };
-
               home.sessionVariables = {
                 NIX_NEOVIM = 1;
               };

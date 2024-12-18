@@ -6,6 +6,8 @@ return {
     signs = false,
   },
   init = function()
-    vim.keymap.set("n", "<leader>tc", "<cmd>TodoTelescope<cr>", { desc = "View todo comments in Telescope" })
+    vim.keymap.set("n", "<leader>tc", function()
+      require("todo-comments.fzf").todo()
+    end, { desc = "View [t]odo [c]omments" })
   end,
 }
