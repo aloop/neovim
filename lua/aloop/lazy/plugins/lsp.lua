@@ -52,6 +52,9 @@ return {
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
+    local nix_conf_path = string.format("%s/nixos-config", vim.fn.expand("~"))
+    local nix_conf_exists = vim.fn.isdirectory(nix_conf_path) == 1
+
     local servers = {
       bashls = {},
       dockerls = {},
@@ -69,30 +72,11 @@ return {
       golangci_lint_ls = {},
       gleam = {},
 
-      nil_ls = {
-        settings = {
-          ["nil"] = {
-            formatting = {
-              command = { "nixfmt" },
-            },
-          },
-        },
-        on_attach = function()
-          vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
-        end,
-      },
-
-      -- nixd = {
+      -- nil_ls = {
       --   settings = {
-      --     nixd = {
+      --     ["nil"] = {
       --       formatting = {
       --         command = { "nixfmt" },
-      --       },
-      --       diagnostic = {
-      --         suppress = {
-      --           -- "sema-escaping-with",
-      --           -- "sema-def-not-used",
-      --         },
       --       },
       --     },
       --   },
@@ -100,6 +84,32 @@ return {
       --     vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
       --   end,
       -- },
+
+      nixd = {
+        settings = {
+          nixd = {
+            nixpkgs = {
+              expr = "import <nixpkgs> { }",
+            },
+            formatting = {
+              command = { "nixfmt" },
+            },
+            options = {
+              nixos = {
+                expr = nix_conf_exists and string.format('(builtins.getFlake "%s").nixosConfigurations.HomeServer.options', nix_conf_path) or nil,
+              },
+              home_manager = {
+                expr = nix_conf_exists
+                    and string.format('(builtins.getFlake "%s").nixosConfigurations.HomeServer.options.home-manager.users.type.getSubOptions []', nix_conf_path)
+                  or nil,
+              },
+            },
+          },
+        },
+        on_attach = function()
+          vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+        end,
+      },
 
       gopls = {
         settings = {
@@ -185,7 +195,6 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         "stylua",
-        "nil",
       })
       require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

@@ -148,7 +148,7 @@
                     shfmt
                     dockerfile-language-server-nodejs
                     elixir-ls
-                    nil
+                    nixd
                     nixfmt-rfc-style
                   ];
                 };
