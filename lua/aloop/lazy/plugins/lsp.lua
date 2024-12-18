@@ -1,3 +1,10 @@
+local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+
+local handlers = {
+  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+}
+
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
@@ -180,6 +187,7 @@ return {
     local function setup_servers(server_name)
       local server = servers[server_name] or {}
       server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+      server.handlers = handlers
       require("lspconfig")[server_name].setup(server)
     end
 
