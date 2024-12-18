@@ -29,6 +29,7 @@ return {
         },
         treesitter = true,
         cmp = true,
+        blink_cmp = true,
         lsp_trouble = true,
         gitsigns = true,
         neogit = true,
