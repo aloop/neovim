@@ -15,9 +15,7 @@ return {
   dependencies = {
     "echasnovski/mini.nvim",
   },
-  opts = {
-    "fzf-native",
-  },
+  opts = { "default" },
   keys = {
     { "<leader><leader>", command("files", {}), desc = "Fuzzy find files" },
     { "<leader>?", command("oldfiles"), desc = "Search through recent files" },
