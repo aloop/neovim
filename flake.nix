@@ -109,6 +109,7 @@
                     gcc
                     gnumake
                     git
+                    delta
                     ripgrep
                     fd
                     fzf

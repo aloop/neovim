@@ -72,5 +72,6 @@ return {
     { "<leader>gr", command("lsp_references"), desc = "LSP references list" },
     { "<leader>gi", command("lsp_implementations"), desc = "LSP implementations list" },
     { "<leader>gt", command("lsp_typedefs"), desc = "LSP type definitions list" },
+    { "<leader>ca", command("lsp_code_actions", { previewer = "codeaction_native" }), desc = "LSP [c]ode [a]ctions" },
   },
 }
