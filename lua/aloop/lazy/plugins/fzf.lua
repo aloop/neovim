@@ -11,7 +11,7 @@ local bufferOpts = {
 
 return {
   "ibhagwan/fzf-lua",
-  -- optional for icon support
+  event = "VeryLazy",
   dependencies = {
     "echasnovski/mini.nvim",
     "folke/trouble.nvim",
@@ -65,7 +65,7 @@ return {
     { "<leader>?", command("oldfiles"), desc = "Search through recent files" },
     { "<leader>/", command("lgrep_curbuf"), desc = "Fuzzy search in current buffer" },
     { "<leader>:", command("command_history"), desc = "Search Command History" },
-    { "<leader>sg", command("live_grep_native"), desc = "Grep through files under cwd" },
+    { "<leader>sg", command("grep_project"), desc = "Grep through files under cwd" },
     { "<leader>sg", command("grep_visual"), mode = "v", desc = "Grep through files under cwd" },
     { "<leader>sw", command("grep_cword"), desc = "Search for word under cursor in cwd" },
     { "<leader>sb", command("buffers", bufferOpts), desc = "Search Buffers" },
@@ -81,4 +81,9 @@ return {
     { "<leader>gt", command("lsp_typedefs"), desc = "LSP type definitions list" },
     { "<leader>ca", command("lsp_code_actions", { previewer = "codeaction_native" }), desc = "LSP [c]ode [a]ctions" },
   },
+  init = function()
+    local fzf = require("fzf-lua")
+
+    fzf.register_ui_select()
+  end,
 }
