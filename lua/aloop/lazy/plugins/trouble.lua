@@ -4,6 +4,7 @@ return {
   cmd = "Trouble",
   keys = {
     { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+    { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Current Buffer Diagnostics (Trouble)" },
     { "<leader>xd", "<cmd>Trouble diagnostics toggle focus=false filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
     { "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
     { "<leader>xl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
@@ -15,5 +16,9 @@ return {
     { "gi", "<cmd>Trouble lsp_implementations toggle focus=true<cr>", desc = "LSP implementations list" },
     { "gt", "<cmd>Trouble lsp_type_definitions toggle focus=true<cr>", desc = "LSP type definitions list" },
   },
-  opts = {},
+  opts = {
+    warn_no_results = false,
+    auto_close = true,
+    auto_jump = true,
+  },
 }
