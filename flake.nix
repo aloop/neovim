@@ -117,7 +117,7 @@
                     run chmod u+rw ~/.config/nvim/lazy-lock.json
                   '')
                   ''
-                    run $args nvim --headless '+Lazy! restore' +qa
+                    run $args nvim --headless '+Lazy! restore' '+Lazy! clean' +qa
                   ''
                 ])
               );
