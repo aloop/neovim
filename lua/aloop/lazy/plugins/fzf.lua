@@ -51,6 +51,13 @@ return {
           ["ctrl-q"] = open_or_send_to_trouble,
         },
       },
+      oldfiles = {
+        cwd_only = true,
+        include_current_session = true,
+      },
+      grep = {
+        rg_glob = true,
+      },
     }
   end,
   keys = {
