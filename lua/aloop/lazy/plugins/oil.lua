@@ -1,6 +1,6 @@
 return {
   "stevearc/oil.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = { "echasnovski/mini.nvim" },
   keys = {
     { "-", "<cmd>Oil --float<cr>", desc = "Open directory of current buffer in Oil" },
   },
