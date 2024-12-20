@@ -81,9 +81,10 @@ return {
     { "<leader>gt", command("lsp_typedefs"), desc = "LSP type definitions list" },
     { "<leader>ca", command("lsp_code_actions", { previewer = "codeaction_native" }), desc = "LSP [c]ode [a]ctions" },
   },
-  init = function()
+  setup = function(_, opts)
     local fzf = require("fzf-lua")
 
+    fzf.setup(opts)
     fzf.register_ui_select()
   end,
 }
