@@ -22,12 +22,12 @@ return {
         auto_show = true,
         auto_show_delay_ms = 100,
         window = {
-          border = "single",
+          border = "rounded",
         },
       },
 
       menu = {
-        border = "single",
+        border = "rounded",
         draw = {
           treesitter = { "lsp" },
           columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } },
@@ -38,7 +38,7 @@ return {
       ghost_text = { enabled = true },
     },
 
-    signature = { window = { border = "single" } },
+    signature = { window = { border = "rounded" } },
 
     -- 'default' for mappings similar to built-in completion
     -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
