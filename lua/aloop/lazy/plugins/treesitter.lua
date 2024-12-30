@@ -22,9 +22,6 @@ end
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  dependencies = {
-    "hiphish/rainbow-delimiters.nvim",
-  },
   opts = {
     ensure_installed = default_parsers,
     auto_install = not vim.g.is_nix,
