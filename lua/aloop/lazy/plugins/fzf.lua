@@ -40,15 +40,15 @@ return {
       actions = {
         files = {
           default = open_or_send_to_trouble,
-          ["ctrl-q"] = open_or_send_to_trouble,
+          ["ctrl-q"] = troubleActions.open,
         },
         buffers = {
           default = open_or_send_to_trouble,
-          ["ctrl-q"] = open_or_send_to_trouble,
+          ["ctrl-q"] = troubleActions.open,
         },
         search = {
           default = open_or_send_to_trouble,
-          ["ctrl-q"] = open_or_send_to_trouble,
+          ["ctrl-q"] = troubleActions.open,
         },
       },
       oldfiles = {
@@ -65,7 +65,8 @@ return {
     { "<leader>?", command("oldfiles"), desc = "Search through recent files" },
     { "<leader>/", command("lgrep_curbuf"), desc = "Fuzzy search in current buffer" },
     { "<leader>:", command("command_history"), desc = "Search Command History" },
-    { "<leader>sg", command("grep_project"), desc = "Grep through files under cwd" },
+    { "<leader>sg", command("live_grep_native"), desc = "Search file contents" },
+    { "<leader>sG", command("live_grep_resume"), desc = "Search file contents (reuse last search)" },
     { "<leader>sg", command("grep_visual"), mode = "v", desc = "Grep through files under cwd" },
     { "<leader>sw", command("grep_cword"), desc = "Search for word under cursor in cwd" },
     { "<leader>sb", command("buffers", bufferOpts), desc = "Search Buffers" },
