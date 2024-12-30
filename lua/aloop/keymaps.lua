@@ -14,8 +14,6 @@ end
 
 smap("i", "jj", "<esc>", "Exit insert mode")
 
-smap("c", "w!!", "<cmd>w !sudo tee % >/dev/null", "Write buffer with sudo")
-
 smap("n", "x", '"_x', "Don't copy single character deletions to the default buffer")
 smap("v", "p", '"_dP', "Paste without clobbering the register")
 
