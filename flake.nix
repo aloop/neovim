@@ -20,9 +20,11 @@
               types
               mkOption
               mkIf
+              optionals
               optionalString
               concatStrings
               concatStringsSep
+              concatLists
               ;
 
             homeDir = config.home.homeDirectory;
@@ -40,6 +42,17 @@
                 type = types.bool;
                 default = true;
                 description = "Setup shell aliases for vi/vim/vimdiff";
+              };
+
+              minimal = mkOption {
+                type = types.bool;
+                default = true;
+                description = "Install fewer LSPs/Formatters by default";
+              };
+
+              extraPackages = mkOption {
+                type = types.listOf types.package;
+                default = [ ];
               };
 
               config = {
@@ -145,48 +158,79 @@
                     (lib.readFile ./init.lua)
                   ];
 
-                  extraPackages = with pkgs; [
-                    tree-sitter
-                    gcc
-                    gnumake
-                    git
-                    delta
-                    ripgrep
-                    fd
-                    fzf
-                    jq
-                    lua5_1
-                    lua51Packages.luarocks
-                    lua-language-server
-                    gopls
-                    golangci-lint-langserver
-                    gofumpt
-                    golines
-                    goimports-reviser
-                    templ
-                    gleam
-                    stylua
-                    vscode-langservers-extracted
-                    bash-language-server
-                    typescript
-                    typescript-language-server
-                    tailwindcss-language-server
-                    astro-language-server
-                    svelte-language-server
-                    prettierd
-                    nodePackages.prettier
-                    htmx-lsp
-                    yaml-language-server
-                    marksman
-                    phpactor
-                    isort
-                    ruff
-                    shellcheck
-                    shfmt
-                    dockerfile-language-server-nodejs
-                    elixir-ls
-                    nixd
-                    nixfmt-rfc-style
+                  extraPackages = concatLists [
+                    (with pkgs; [
+                      # CLI tools
+                      tree-sitter
+                      gcc
+                      gnumake
+                      git
+                      delta
+                      lazygit
+                      ripgrep
+                      fd
+                      fzf
+                      jq
+
+                      # Lua
+                      lua5_1
+                      lua51Packages.luarocks
+                      lua-language-server
+                      stylua
+
+                      # Shell scripts and text editing
+                      marksman
+                      bash-language-server
+                      yaml-language-server
+                      shellcheck
+                      shfmt
+                      dockerfile-language-server-nodejs
+
+                      # Python
+                      isort
+                      ruff
+
+                      # Nix
+                      nixd
+                      nixfmt-rfc-style
+                    ])
+
+                    (optionals (!cfg.minimal) (
+                      with pkgs;
+                      [
+                        # Go
+                        gopls
+                        golangci-lint-langserver
+                        gofumpt
+                        golines
+                        goimports-reviser
+                        templ
+
+                        # HTML/CSS/JS/TS
+                        vscode-langservers-extracted
+                        typescript
+                        typescript-language-server
+                        tailwindcss-language-server
+                        astro-language-server
+                        svelte-language-server
+                        prettierd
+                        nodePackages.prettier
+                        htmx-lsp
+
+                        # PHP
+                        phpactor
+                        php.packages.php-codesniffer
+                        php.packages.php-cs-fixer
+
+                        # Gleam
+                        gleam
+
+                        # Elixir
+                        elixir-ls
+                      ]
+                    ))
+
+                    cfg.extraPackages
                   ];
                 };
             };
