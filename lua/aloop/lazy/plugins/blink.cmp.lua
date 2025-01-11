@@ -18,6 +18,10 @@ return {
       -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
       keyword = { range = "full" },
 
+      trigger = {
+        show_in_snippet = false,
+      },
+
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 100,
@@ -35,7 +39,7 @@ return {
       },
 
       -- Display a preview of the selected item on the current line
-      ghost_text = { enabled = true },
+      ghost_text = { enabled = false },
     },
 
     signature = { window = { border = "rounded" } },
@@ -47,8 +51,6 @@ return {
     -- your own keymap.
     keymap = {
       preset = "super-tab",
-      -- ["<Up>"] = { "select_prev", "fallback" },
-      -- ["<Down>"] = { "select_next", "fallback" },
     },
 
     sources = {
