@@ -4,19 +4,23 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    bigfile = { enabled = true },
-    notifier = {
-      enabled = true,
-      timeout = 3000,
-    },
-    quickfile = { enabled = true },
-    statuscolumn = { enabled = true },
-    words = { enabled = true },
     styles = {
       notification = {
         wo = { wrap = true }, -- Wrap notifications
       },
     },
+
+    bigfile = { enabled = true },
+    quickfile = { enabled = true },
+    statuscolumn = { enabled = true },
+    words = { enabled = true },
+    terminal = { enabled = true },
+
+    notifier = {
+      enabled = true,
+      timeout = 3000,
+    },
+
     dashboard = {
       preset = {
         header = table.concat({
@@ -95,9 +99,10 @@ return {
       desc = "Rename File",
     },
     {
+      mode = { "n", "t" },
       "<c-/>",
       function()
-        Snacks.terminal()
+        Snacks.terminal.toggle()
       end,
       desc = "Toggle Terminal",
     },
