@@ -1,13 +1,14 @@
 return {
   "saghen/blink.cmp",
-  lazy = false, -- lazy loading handled internally
-  -- optional: provides snippets for the snippet source
+
   dependencies = {
     "rafamadriz/friendly-snippets",
     "echasnovski/mini.nvim",
   },
 
   version = "*",
+
+  -- build = vim.g.is_nix and "nix run .#build-plugin",
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
