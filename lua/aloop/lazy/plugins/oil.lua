@@ -8,7 +8,7 @@ return {
   ---@type oil.SetupOpts
   opts = {
     default_file_explorer = true,
-    delete_to_trash = true,
+    delete_to_trash = false,
     skip_confirm_for_simple_edits = true,
 
     columns = { "icon" },
@@ -18,13 +18,13 @@ return {
       natural_order = true,
     },
 
-    win_options = {
-      winbar = "%{v:lua.require('oil').get_current_dir()}",
-    },
+    -- win_options = {
+    --   winbar = "%{v:lua.require('oil').get_current_dir()}",
+    -- },
 
     float = {
       padding = 2,
-      max_width = 90,
+      max_width = 120,
       max_height = 0,
     },
 
