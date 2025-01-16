@@ -1,7 +1,52 @@
+local picker = function(picker_name, opts)
+  return function()
+    Snacks.picker[picker_name](opts or {})
+  end
+end
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  dependencies = {
+    {
+      "folke/todo-comments.nvim",
+      optional = true,
+      keys = {
+        {
+          "<leader>tc",
+          function()
+            Snacks.picker.todo_comments()
+          end,
+          desc = "View [t]odo [c]omments",
+        },
+      },
+    },
+    {
+      "folke/trouble.nvim",
+      optional = true,
+      specs = {
+        "folke/snacks.nvim",
+        opts = function(_, opts)
+          return vim.tbl_deep_extend("force", opts or {}, {
+            picker = {
+              actions = require("trouble.sources.snacks").actions,
+              win = {
+                input = {
+                  keys = {
+                    ["<c-t>"] = {
+                      "trouble_open",
+                      mode = { "n", "i" },
+                    },
+                  },
+                },
+              },
+            },
+          })
+        end,
+      },
+    },
+  },
   ---@type snacks.Config
   opts = {
     styles = {
@@ -38,6 +83,14 @@ return {
         { icon = " ", title = "Projects", section = "projects", padding = 1 },
         { section = "keys" },
         { section = "startup" },
+      },
+    },
+
+    picker = {
+      previewers = {
+        git = {
+          native = true,
+        },
       },
     },
   },
@@ -78,20 +131,6 @@ return {
       desc = "Git Browse",
     },
     {
-      "<leader>gf",
-      function()
-        Snacks.lazygit.log_file()
-      end,
-      desc = "Lazygit Current File History",
-    },
-    {
-      "<leader>gl",
-      function()
-        Snacks.lazygit.log()
-      end,
-      desc = "Lazygit Log (cwd)",
-    },
-    {
       "<leader>cR",
       function()
         Snacks.rename()
@@ -120,7 +159,39 @@ return {
       end,
       desc = "Prev Reference",
     },
+    ---- Picker keymaps
+    -- find files
+    { "<leader><leader>", picker("files"), desc = "Fuzzy find files" },
+    { "<leader>?", picker("recent", { filter = { cwd = true } }), desc = "Search through recent files under cwd" },
+    -- grep
+    { "<leader>/", picker("lines"), desc = "Fuzzy search in current buffer" },
+    { "<leader>sg", picker("grep"), desc = "[S]earch ([G]rep) file contents" },
+    { "<leader>sw", picker("grep_word"), mode = { "n", "v" }, desc = "[S]earch [W]ord under cursor/selection" },
+    { "<leader>sb", picker("grep_buffers"), desc = "[S]earch [B]uffers" },
+    -- git
+    { "<leader>gl", picker("git_log"), desc = "[G]it [L]og" },
+    { "<leader>gL", picker("git_log_file"), desc = "[G]it [L]og (current file)" },
+    { "<leader>gh", picker("git_log_line"), desc = "[G]it Log for current line" },
+    { "<leader>gs", picker("git_status"), desc = "[G]it [S]tatus" },
+    -- search
+    { "<leader>:", picker("command_history"), desc = "Search Command History" },
+    { "<tab>", picker("buffers", { current = false, nofile = false }), desc = "Search Buffers" },
+    { "<leader>sh", picker("help"), desc = "[S]earch [H]elp Tags" },
+    { "<leader>sm", picker("man"), desc = "[S]earch [M]an Pages" },
+    { "<leader>sk", picker("keymaps"), desc = "[S]earch [K]ey Maps" },
+    -- diagnostics
+    { "<leader>sd", picker("diagnostics"), desc = "[S]how [D]iagnostics" },
+    { "<leader>sD", picker("diagnostics_buffer"), desc = "[S]how [D]iagnostics (current buffer)" },
+    -- LSP
+    { "<leader>gd", picker("lsp_definitions"), desc = "[G]oto [D]efinition" },
+    { "<leader>gr", picker("lsp_references"), desc = "[G]oto [R]eference" },
+    { "<leader>gi", picker("lsp_implementations"), desc = "[G]oto [I]mplementation" },
+    { "<leader>gt", picker("lsp_type_definitions"), desc = "[G]oto [T]ype Definition" },
+    -- misc
+    { "<leader>sr", picker("resume"), desc = "[R]esume last picker" },
+    { "<leader>sp", picker("projects"), desc = "[S]earch [P]rojects" },
   },
+
   init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
