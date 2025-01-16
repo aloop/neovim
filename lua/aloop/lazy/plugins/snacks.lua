@@ -1,9 +1,3 @@
-local picker = function(picker_name, opts)
-  return function()
-    Snacks.picker[picker_name](opts or {})
-  end
-end
-
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -15,9 +9,7 @@ return {
       keys = {
         {
           "<leader>tc",
-          function()
-            Snacks.picker.todo_comments()
-          end,
+          function() Snacks.picker.todo_comments() end,
           desc = "View [t]odo [c]omments",
         },
       },
@@ -95,101 +87,70 @@ return {
     },
   },
   keys = {
-    {
-      "<leader>dn",
-      function()
-        Snacks.notifier.hide()
-      end,
-      desc = "Dismiss All Notifications",
-    },
-    {
-      "<leader>bd",
-      function()
-        Snacks.bufdelete()
-      end,
-      desc = "Delete Buffer",
-    },
-    {
-      "<leader>gg",
-      function()
-        Snacks.lazygit()
-      end,
-      desc = "Lazygit",
-    },
-    {
-      "<leader>gb",
-      function()
-        Snacks.git.blame_line()
-      end,
-      desc = "Git Blame Line",
-    },
-    {
-      "<leader>gB",
-      function()
-        Snacks.gitbrowse()
-      end,
-      desc = "Git Browse",
-    },
-    {
-      "<leader>cR",
-      function()
-        Snacks.rename()
-      end,
-      desc = "Rename File",
-    },
-    {
-      mode = { "n", "t" },
-      "<c-/>",
-      function()
-        Snacks.terminal.toggle()
-      end,
-      desc = "Toggle Terminal",
-    },
-    {
-      "]]",
-      function()
-        Snacks.words.jump(vim.v.count1)
-      end,
-      desc = "Next Reference",
-    },
-    {
-      "[[",
-      function()
-        Snacks.words.jump(-vim.v.count1)
-      end,
-      desc = "Prev Reference",
-    },
+    { "<leader>dn", function() Snacks.notifier.hide() end, desc = "[D]ismiss All [N]otifications" },
+    { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer (preserve layout)" },
+    { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>gb", function() Snacks.git.blame_line() end, desc = "[G]it [B]lame Line" },
+    { "<leader>gB", function() Snacks.gitbrowse() end, desc = "[G]it [B]rowse" },
+    { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
+    { mode = { "n", "t" }, "<c-/>", function() Snacks.terminal.toggle() end, desc = "Toggle Terminal" },
+    { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
+    { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
+
     ---- Picker keymaps
+
     -- find files
-    { "<leader><leader>", picker("files"), desc = "Fuzzy find files" },
-    { "<leader>?", picker("recent", { filter = { cwd = true } }), desc = "Search through recent files under cwd" },
+    { "<leader><leader>", function() Snacks.picker.files({ hidden = true }) end, desc = "Fuzzy find files" },
+    { "<leader>?", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Search through recent files under cwd" },
     -- grep
-    { "<leader>/", picker("lines"), desc = "Fuzzy search in current buffer" },
-    { "<leader>sg", picker("grep"), desc = "[S]earch ([G]rep) file contents" },
-    { "<leader>sw", picker("grep_word"), mode = { "n", "v" }, desc = "[S]earch [W]ord under cursor/selection" },
-    { "<leader>sb", picker("grep_buffers"), desc = "[S]earch [B]uffers" },
+    { "<leader>/", function() Snacks.picker.lines() end, desc = "Fuzzy search in current buffer" },
+    { "<leader>sg", function() Snacks.picker.grep() end, desc = "[S]earch ([G]rep) file contents" },
+    { "<leader>sw", function() Snacks.picker.grep_word() end, mode = { "n", "v" }, desc = "[S]earch [W]ord under cursor/selection" },
+    { "<leader>sb", function() Snacks.picker.grep_buffers() end, desc = "[S]earch [B]uffers" },
     -- git
-    { "<leader>gl", picker("git_log"), desc = "[G]it [L]og" },
-    { "<leader>gL", picker("git_log_file"), desc = "[G]it [L]og (current file)" },
-    { "<leader>gh", picker("git_log_line"), desc = "[G]it Log for current line" },
-    { "<leader>gs", picker("git_status"), desc = "[G]it [S]tatus" },
+    { "<leader>gl", function() Snacks.picker.git_log() end, desc = "[G]it [L]og" },
+    { "<leader>gL", function() Snacks.picker.git_log_file() end, desc = "[G]it [L]og (current file)" },
+    { "<leader>gh", function() Snacks.picker.git_log_line() end, desc = "[G]it Log for current line" },
+    { "<leader>gs", function() Snacks.picker.git_status() end, desc = "[G]it [S]tatus" },
     -- search
-    { "<leader>:", picker("command_history"), desc = "Search Command History" },
-    { "<tab>", picker("buffers", { current = false, nofile = false }), desc = "Search Buffers" },
-    { "<leader>sh", picker("help"), desc = "[S]earch [H]elp Tags" },
-    { "<leader>sm", picker("man"), desc = "[S]earch [M]an Pages" },
-    { "<leader>sk", picker("keymaps"), desc = "[S]earch [K]ey Maps" },
+    { "<leader>:", function() Snacks.picker.command_history() end, desc = "Search Command History" },
+    {
+      "<tab>",
+      function()
+        Snacks.picker.buffers({
+          current = false,
+          nofile = false,
+          win = {
+            input = {
+              keys = {
+                ["<c-x>"] = { "bufdelete", mode = { "n", "i" } },
+              },
+            },
+            list = {
+              keys = {
+                ["<c-x>"] = { "bufdelete", mode = { "n", "i" } },
+              },
+            },
+          },
+        })
+      end,
+      desc = "Search Buffers",
+    },
+    { "<leader>sh", function() Snacks.picker.help() end, desc = "[S]earch [H]elp Tags" },
+    { "<leader>sm", function() Snacks.picker.man() end, desc = "[S]earch [M]an Pages" },
+    { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "[S]earch [K]ey Maps" },
     -- diagnostics
-    { "<leader>sd", picker("diagnostics"), desc = "[S]how [D]iagnostics" },
-    { "<leader>sD", picker("diagnostics_buffer"), desc = "[S]how [D]iagnostics (current buffer)" },
+    { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "[S]how [D]iagnostics" },
+    { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "[S]how [D]iagnostics (current buffer)" },
     -- LSP
-    { "<leader>gd", picker("lsp_definitions"), desc = "[G]oto [D]efinition" },
-    { "<leader>gr", picker("lsp_references"), desc = "[G]oto [R]eference" },
-    { "<leader>gi", picker("lsp_implementations"), desc = "[G]oto [I]mplementation" },
-    { "<leader>gt", picker("lsp_type_definitions"), desc = "[G]oto [T]ype Definition" },
+    { "<leader>gd", function() Snacks.picker.lsp_definitions() end, desc = "[G]oto [D]efinition" },
+    { "<leader>gr", function() Snacks.picker.lsp_references() end, desc = "[G]oto [R]eference" },
+    { "<leader>gi", function() Snacks.picker.lsp_implementations() end, desc = "[G]oto [I]mplementation" },
+    { "<leader>gt", function() Snacks.picker.lsp_type_definitions() end, desc = "[G]oto [T]ype Definition" },
+    { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "[S]how LSP [S]ymbols" },
     -- misc
-    { "<leader>sr", picker("resume"), desc = "[R]esume last picker" },
-    { "<leader>sp", picker("projects"), desc = "[S]earch [P]rojects" },
+    { "<leader>sr", function() Snacks.picker.resume() end, desc = "[R]esume last picker" },
+    { "<leader>sp", function() Snacks.picker.projects() end, desc = "[S]earch [P]rojects" },
   },
 
   init = function()
@@ -197,12 +158,8 @@ return {
       pattern = "VeryLazy",
       callback = function()
         -- Setup some globals for debugging (lazy-loaded)
-        _G.dd = function(...)
-          Snacks.debug.inspect(...)
-        end
-        _G.bt = function()
-          Snacks.debug.backtrace()
-        end
+        _G.dd = function(...) Snacks.debug.inspect(...) end
+        _G.bt = function() Snacks.debug.backtrace() end
         vim.print = _G.dd -- Override print to use snacks for `:=` command
 
         -- Create some toggle mappings
@@ -240,17 +197,13 @@ return {
         end
 
         local msg = {} ---@type string[]
-        progress[client.id] = vim.tbl_filter(function(v)
-          return table.insert(msg, v.msg) or not v.done
-        end, p)
+        progress[client.id] = vim.tbl_filter(function(v) return table.insert(msg, v.msg) or not v.done end, p)
 
         local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
         vim.notify(table.concat(msg, "\n"), "info", {
           id = "lsp_progress",
           title = client.name,
-          opts = function(notif)
-            notif.icon = #progress[client.id] == 0 and " " or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-          end,
+          opts = function(notif) notif.icon = #progress[client.id] == 0 and " " or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1] end,
         })
       end,
     })

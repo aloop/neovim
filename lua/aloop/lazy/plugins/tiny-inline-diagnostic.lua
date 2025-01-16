@@ -10,7 +10,5 @@ return {
       },
     },
   },
-  init = function()
-    vim.diagnostic.config({ virtual_text = false })
-  end,
+  init = function() vim.diagnostic.config({ virtual_text = false }) end,
 }

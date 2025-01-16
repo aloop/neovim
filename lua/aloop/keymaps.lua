@@ -72,9 +72,5 @@ smap("n", "<leader>gcb", "0v/|||<CR>$x/====<CR>0v/>>><CR>$x", "[G]it [C]onflict 
 smap("n", "<leader>gcs", "0v/====<CR>$x/>>><CR>dd", "[G]it [C]onflict Choose [S]tashed")
 
 -- Block insert in line visual mode
-smap("x", "I", function()
-  return vim.fn.mode() == "V" and "^<C-v>I" or "I"
-end, "", { expr = true })
-smap("x", "A", function()
-  return vim.fn.mode() == "V" and "$<C-v>A" or "A"
-end, "", { expr = true })
+smap("x", "I", function() return vim.fn.mode() == "V" and "^<C-v>I" or "I" end, "", { expr = true })
+smap("x", "A", function() return vim.fn.mode() == "V" and "$<C-v>A" or "A" end, "", { expr = true })

@@ -1,9 +1,3 @@
-local command = function(command_name, opts)
-  return function()
-    require("fzf-lua")[command_name](opts or {})
-  end
-end
-
 local bufferOpts = {
   ignore_current_buffer = true,
   no_term_buffers = true,
@@ -22,9 +16,7 @@ return {
       keys = {
         {
           "<leader>tc",
-          function()
-            require("todo-comments.fzf").todo()
-          end,
+          function() require("todo-comments.fzf").todo() end,
           desc = "Show [T]odo [C]omments",
         },
       },
@@ -75,26 +67,26 @@ return {
     }
   end,
   keys = {
-    { "<leader><leader>", command("files", {}), desc = "Fuzzy find files" },
-    { "<leader>?", command("oldfiles"), desc = "Search through recent files" },
-    { "<leader>/", command("lgrep_curbuf"), desc = "Fuzzy search in current buffer" },
-    { "<leader>:", command("command_history"), desc = "Search Command History" },
-    { "<leader>sg", command("live_grep_native"), desc = "Search file contents" },
-    { "<leader>sG", command("live_grep_resume"), desc = "Search file contents (reuse last search)" },
-    { "<leader>sg", command("grep_visual"), mode = "v", desc = "Grep through files under cwd" },
-    { "<leader>sw", command("grep_cword"), desc = "Search for word under cursor in cwd" },
-    { "<leader>sb", command("buffers", bufferOpts), desc = "Search Buffers" },
-    { "<tab>", command("buffers", bufferOpts), desc = "Search Buffers" },
-    { "<leader>sp", command("spell_suggest"), desc = "Spelling Suggestions" },
-    { "<leader>ht", command("helptags"), desc = "Search Help Tags" },
-    { "<leader>mp", command("manpages"), desc = "Search Man Pages" },
-    { "<leader>km", command("keymaps"), desc = "Search Key Maps" },
-    { "<leader>td", command("diagnostics_workspace"), desc = "Show diagnostics" },
-    { "<leader>gd", command("lsp_definitions"), desc = "LSP definitions list" },
-    { "<leader>gr", command("lsp_references"), desc = "LSP references list" },
-    { "<leader>gi", command("lsp_implementations"), desc = "LSP implementations list" },
-    { "<leader>gt", command("lsp_typedefs"), desc = "LSP type definitions list" },
-    { "<leader>ca", command("lsp_code_actions", { previewer = "codeaction_native" }), desc = "LSP [c]ode [a]ctions" },
+    { "<leader><leader>", function() require("fzf-lua").files() end, desc = "Fuzzy find files" },
+    { "<leader>?", function() require("fzf-lua").oldfiles() end, desc = "Search through recent files" },
+    { "<leader>/", function() require("fzf-lua").lgrep_curbuf() end, desc = "Fuzzy search in current buffer" },
+    { "<leader>:", function() require("fzf-lua").command_history() end, desc = "Search Command History" },
+    { "<leader>sg", function() require("fzf-lua").live_grep_native() end, desc = "Search file contents" },
+    { "<leader>sG", function() require("fzf-lua").live_grep_resume() end, desc = "Search file contents (reuse last search)" },
+    { "<leader>sg", function() require("fzf-lua").grep_visual() end, mode = "v", desc = "Grep through files under cwd" },
+    { "<leader>sw", function() require("fzf-lua").grep_cword() end, desc = "Search for word under cursor in cwd" },
+    { "<leader>sb", function() require("fzf-lua").buffers(bufferOpts) end, desc = "Search Buffers" },
+    { "<tab>", function() require("fzf-lua").buffers(bufferOpts) end, desc = "Search Buffers" },
+    { "<leader>sp", function() require("fzf-lua").spell_suggest() end, desc = "Spelling Suggestions" },
+    { "<leader>ht", function() require("fzf-lua").helptags() end, desc = "Search Help Tags" },
+    { "<leader>mp", function() require("fzf-lua").manpages() end, desc = "Search Man Pages" },
+    { "<leader>km", function() require("fzf-lua").keymaps() end, desc = "Search Key Maps" },
+    { "<leader>td", function() require("fzf-lua").diagnostics_workspace() end, desc = "Show diagnostics" },
+    { "<leader>gd", function() require("fzf-lua").lsp_definitions() end, desc = "LSP definitions list" },
+    { "<leader>gr", function() require("fzf-lua").lsp_references() end, desc = "LSP references list" },
+    { "<leader>gi", function() require("fzf-lua").lsp_implementations() end, desc = "LSP implementations list" },
+    { "<leader>gt", function() require("fzf-lua").lsp_typedefs() end, desc = "LSP type definitions list" },
+    { "<leader>ca", function() require("fzf-lua").lsp_code_actions({ previewer = "codeaction_native" }) end, desc = "LSP [c]ode [a]ctions" },
   },
   setup = function(_, opts)
     local fzf = require("fzf-lua")

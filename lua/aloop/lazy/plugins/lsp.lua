@@ -67,9 +67,7 @@ return {
             },
           },
         },
-        on_attach = function()
-          vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
-        end,
+        on_attach = function() vim.lsp.inlay_hint.enable(true, { bufnr = 0 }) end,
       },
 
       gopls = {
@@ -142,9 +140,7 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
       callback = function(event)
-        local map = function(keys, func, desc)
-          vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-        end
+        local map = function(keys, func, desc) vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc }) end
 
         map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
         -- map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
@@ -174,9 +170,7 @@ return {
         end
 
         if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-          map("<leader>th", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
-          end, "[T]oggle Inlay [H]ints")
+          map("<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 }) end, "[T]oggle Inlay [H]ints")
         end
       end,
     })
