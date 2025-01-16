@@ -15,6 +15,19 @@ return {
   dependencies = {
     "echasnovski/mini.nvim",
     "folke/trouble.nvim",
+    {
+      "folke/todo-comments.nvim",
+      optional = true,
+      keys = {
+        {
+          "<leader>tc",
+          function()
+            require("todo-comments.fzf").todo()
+          end,
+          desc = "Show [T]odo [C]omments",
+        },
+      },
+    },
   },
   opts = function()
     local actions = require("fzf-lua.actions")
