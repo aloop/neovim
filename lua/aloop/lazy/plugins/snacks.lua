@@ -79,6 +79,9 @@ return {
     },
 
     picker = {
+      matcher = {
+        sort_empty = true,
+      },
       previewers = {
         git = {
           native = true,
@@ -100,7 +103,8 @@ return {
     ---- Picker keymaps
 
     -- find files
-    { "<leader><leader>", function() Snacks.picker.files({ hidden = true }) end, desc = "Fuzzy find files" },
+    { "<leader><leader>", function() Snacks.picker.smart({ hidden = true, filter = { cwd = true } }) end, desc = "Fuzzy find files" },
+    -- { "<leader><leader>", function() Snacks.picker.files({ hidden = true }) end, desc = "Fuzzy find files" },
     { "<leader>?", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Search through recent files under cwd" },
     -- grep
     { "<leader>/", function() Snacks.picker.lines() end, desc = "Fuzzy search in current buffer" },
@@ -120,18 +124,6 @@ return {
         Snacks.picker.buffers({
           current = false,
           nofile = false,
-          win = {
-            input = {
-              keys = {
-                ["<c-x>"] = { "bufdelete", mode = { "n", "i" } },
-              },
-            },
-            list = {
-              keys = {
-                ["<c-x>"] = { "bufdelete", mode = { "n", "i" } },
-              },
-            },
-          },
         })
       end,
       desc = "Search Buffers",
