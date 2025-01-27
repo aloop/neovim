@@ -87,6 +87,11 @@ return {
           native = true,
         },
       },
+      formatters = {
+        file = {
+          truncate = 80,
+        },
+      },
     },
   },
   keys = {
@@ -103,8 +108,21 @@ return {
     ---- Picker keymaps
 
     -- find files
-    { "<leader><leader>", function() Snacks.picker.smart({ hidden = true, filter = { cwd = true } }) end, desc = "Fuzzy find files" },
-    -- { "<leader><leader>", function() Snacks.picker.files({ hidden = true }) end, desc = "Fuzzy find files" },
+    {
+      "<leader><leader>",
+      function()
+        Snacks.picker.smart({
+          hidden = true,
+          filter = {
+            cwd = true,
+          },
+          matcher = {
+            cwd_bonus = false, -- We're filtering to only show stuff under cwd anyways
+          },
+        })
+      end,
+      desc = "Fuzzy find files",
+    },
     { "<leader>?", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Search through recent files under cwd" },
     -- grep
     { "<leader>/", function() Snacks.picker.lines() end, desc = "Fuzzy search in current buffer" },
