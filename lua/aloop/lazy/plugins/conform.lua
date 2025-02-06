@@ -1,3 +1,6 @@
+local prettier = { "prettierd", "prettier", stop_after_first = true }
+local shell = { "shfmt" }
+
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -7,12 +10,24 @@ return {
   opts = {
     formatters_by_ft = {
       go = { "goimports-reviser", "gofumpt", "golines" },
-      javascript = { "prettierd", "prettier", stop_after_first = true },
+      templ = { "templ" },
       lua = { "stylua" },
       nix = { "nixfmt" },
       python = { "isort", "ruff" },
       rust = { "rustfmt", lsp_format = "fallback" },
       php = { "php_cs_fixer" },
+
+      sh = shell,
+      bash = shell,
+
+      css = prettier,
+      scss = prettier,
+      html = prettier,
+      json = prettier,
+      jsonc = prettier,
+      javascript = prettier,
+      typescript = prettier,
+      vue = prettier,
     },
     default_format_opts = { lsp_format = "fallback" },
     format_on_save = { timeout_ms = 500 },
