@@ -40,8 +40,9 @@ opt.writebackup = false
 opt.swapfile = false
 opt.backup = false
 
--- Show the signcolumn always
-opt.signcolumn = "yes"
+-- Statuscolumn options
+opt.numberwidth = 3
+opt.signcolumn = "yes:1"
 
 -- Split configuration
 opt.splitbelow = true
