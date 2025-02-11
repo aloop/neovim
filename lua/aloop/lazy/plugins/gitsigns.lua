@@ -5,7 +5,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   cmd = "Gitsigns",
   opts = {
-    numhl = true,
+    numhl = false,
     current_line_blame = true,
     current_line_blame_opts = {
       delay = 300,
