@@ -52,6 +52,7 @@ return {
     statuscolumn = { enabled = true },
     words = { enabled = true },
     terminal = { enabled = true },
+    image = { enabled = true },
 
     notifier = {
       enabled = true,
