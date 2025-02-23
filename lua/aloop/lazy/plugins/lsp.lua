@@ -2,6 +2,7 @@ local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 local nix_conf_path = string.format("%s/nixos-config", vim.fn.expand("~"))
 local nix_conf_exists = vim.fn.isdirectory(nix_conf_path) == 1
+local flake_host = "HomeServer"
 
 local handlers = {
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
@@ -57,12 +58,14 @@ return {
             },
             options = {
               nixos = {
-                expr = nix_conf_exists and string.format('(builtins.getFlake "%s").nixosConfigurations.HomeServer.options', nix_conf_path) or nil,
+                expr = nix_conf_exists and string.format('(builtins.getFlake "%s").nixosConfigurations.%s.options', nix_conf_path, flake_host) or nil,
               },
               home_manager = {
-                expr = nix_conf_exists
-                    and string.format('(builtins.getFlake "%s").nixosConfigurations.HomeServer.options.home-manager.users.type.getSubOptions []', nix_conf_path)
-                  or nil,
+                expr = nix_conf_exists and string.format(
+                  '(builtins.getFlake "%s").nixosConfigurations.%s.options.home-manager.users.type.getSubOptions []',
+                  nix_conf_path,
+                  flake_host
+                ) or nil,
               },
             },
           },
