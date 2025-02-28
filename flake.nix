@@ -221,12 +221,6 @@
                         phpactor
                         php.packages.php-codesniffer
                         php.packages.php-cs-fixer
-
-                        # Gleam
-                        gleam
-
-                        # Elixir
-                        elixir-ls
                       ]
                     ))
 

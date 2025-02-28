@@ -32,7 +32,6 @@ return {
       ruff = {},
       phpactor = {},
       golangci_lint_ls = {},
-      gleam = {},
 
       -- nil_ls = {
       --   settings = {
