@@ -81,7 +81,7 @@
                     "macchiato"
                     "mocha"
                   ];
-                  default = "macchiato";
+                  default = config.aml.theme.variant or "macchiato";
                 };
               };
             };
