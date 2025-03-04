@@ -72,6 +72,18 @@
                   description = "";
                 };
               };
+
+              theme = {
+                variant = mkOption {
+                  type = types.enum [
+                    "latte"
+                    "frappe"
+                    "macchiato"
+                    "mocha"
+                  ];
+                  default = "macchiato";
+                };
+              };
             };
 
             config = mkIf cfg.enable {
@@ -154,6 +166,7 @@
                   extraLuaConfig = concatStringsSep "\n" [
                     ''
                       vim.g.treesitter_parsers_path = "${treesitterParsersPath}"
+                      vim.g.nix_catppuccin_variant = "${cfg.theme.variant}"
                     ''
                     (lib.readFile ./init.lua)
                   ];

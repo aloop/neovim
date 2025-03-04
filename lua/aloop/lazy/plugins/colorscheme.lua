@@ -1,12 +1,16 @@
+if vim.g.nix_catppuccin_variant == nil then
+  vim.g.nix_catppuccin_variant = "macchiato"
+end
+
 return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
     opts = {
-      flavour = "macchiato",
+      flavour = vim.g.nix_catppuccin_variant,
       background = {
-        dark = "macchiato",
+        dark = vim.g.nix_catppuccin_variant,
       },
       transparent_background = true,
       term_colors = true,
