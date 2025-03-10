@@ -228,6 +228,7 @@
                         svelte-language-server
                         prettierd
                         nodePackages.prettier
+                        biome
                         htmx-lsp
 
                         # PHP

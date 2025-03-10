@@ -27,6 +27,7 @@ return {
       html = {},
       templ = {},
       cssls = {},
+      biome = {},
       svelte = {},
       tailwindcss = {},
       ruff = {},
