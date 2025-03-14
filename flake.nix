@@ -106,10 +106,6 @@
                     };
                   };
 
-              home.sessionVariables = {
-                NIX_NEOVIM = 1;
-              };
-
               home.extraActivationPath = mkIf (cfg.config.installLazyPlugins) (
                 with pkgs;
                 [
@@ -165,6 +161,7 @@
 
                   extraLuaConfig = concatStringsSep "\n" [
                     ''
+                      vim.g.is_nix = true
                       vim.g.treesitter_parsers_path = "${treesitterParsersPath}"
                       vim.g.nix_catppuccin_variant = "${cfg.theme.variant}"
                     ''
