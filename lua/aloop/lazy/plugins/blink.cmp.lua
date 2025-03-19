@@ -46,6 +46,7 @@ return {
     signature = { window = { border = "rounded" } },
 
     fuzzy = {
+      implementation = "prefer_rust_with_warning",
       sorts = { "exact", "score", "sort_text" },
     },
 
@@ -70,6 +71,18 @@ return {
           return { "lsp", "path", "snippets", "buffer" }
         end
       end,
+
+      providers = {
+        lsp = {
+          score_offset = 100,
+        },
+
+        path = {
+          opts = {
+            show_hidden_files_by_default = true,
+          },
+        },
+      },
     },
   },
 
