@@ -33,7 +33,7 @@ opt.listchars = "tab:»-,trail:·,extends:»,precedes:«,nbsp:␣"
 opt.fillchars = "eob: ,fold: ,foldopen:▼,foldsep: ,foldclose:⏵"
 
 -- Session Options
-opt.sessionoptions = "blank,buffers,curdir,folds,skiprtp,winsize"
+opt.sessionoptions = "buffers,curdir,folds,skiprtp,winsize"
 
 -- Disable swap files
 opt.writebackup = false
