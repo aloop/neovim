@@ -19,6 +19,7 @@
             inherit (lib)
               types
               mkOption
+              mkDefault
               mkIf
               optionals
               optionalString
@@ -106,6 +107,10 @@
                     };
                   };
 
+              home.sessionVariables = {
+                NIXD_FLAGS = mkDefault "-log=error";
+              };
+
               home.extraActivationPath = mkIf (cfg.config.installLazyPlugins) (
                 with pkgs;
                 [
@@ -181,6 +186,7 @@
                       fd
                       fzf
                       jq
+                      sqlite
 
                       # Lua
                       lua5_1
