@@ -37,6 +37,11 @@ return {
         mason = true,
         markdown = true,
       },
+      custom_highlights = function(colors)
+        return {
+          MiniStatuslineMacro = { bg = colors.red, fg = colors.base, style = { "bold" } },
+        }
+      end,
     },
     init = function() vim.cmd.colorscheme("catppuccin") end,
   },

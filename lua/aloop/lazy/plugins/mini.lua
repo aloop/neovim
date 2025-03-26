@@ -2,6 +2,17 @@ return {
   "echasnovski/mini.nvim",
   version = false,
   config = function()
+    local function macro_recording()
+      local reg = vim.fn.reg_recording()
+      if reg == "" then
+        return ""
+      else
+        return ((MiniStatusline.is_truncated(120) and "" or "Recording ") .. "@" .. reg)
+      end
+    end
+
+    local colors = require("catppuccin.palettes").get_palette(vim.g.nix_catppuccin_variant)
+
     require("mini.ai").setup()
     require("mini.icons").setup()
     require("mini.surround").setup()
@@ -11,7 +22,32 @@ return {
       autoread = true,
     })
 
-    require("mini.statusline").setup()
+    require("mini.statusline").setup({
+      content = {
+        active = function()
+          local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+          local git = MiniStatusline.section_git({ trunc_width = 40 })
+          local diff = MiniStatusline.section_diff({ trunc_width = 75 })
+          local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+          local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
+          local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+          local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+          -- local location = MiniStatusline.section_location({ trunc_width = 75 })
+          -- local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+          local macro_status = macro_recording()
+
+          return MiniStatusline.combine_groups({
+            { hl = mode_hl, strings = { mode } },
+            { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
+            "%<", -- Mark general truncate point
+            { hl = "MiniStatuslineFilename", strings = { filename } },
+            "%=", -- End left alignment
+            { hl = "MiniStatuslineModeReplace", strings = { macro_status } },
+            { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
+          })
+        end,
+      },
+    })
 
     local hipatterns = require("mini.hipatterns")
     hipatterns.setup({
