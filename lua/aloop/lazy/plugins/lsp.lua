@@ -56,6 +56,11 @@ return {
             formatting = {
               command = { "nixfmt" },
             },
+            diagnostic = {
+              suppress = {
+                "sema-escaping-with",
+              },
+            },
             options = {
               nixos = {
                 expr = nix_conf_exists and string.format('(builtins.getFlake "%s").nixosConfigurations.%s.options', nix_conf_path, flake_host) or nil,
