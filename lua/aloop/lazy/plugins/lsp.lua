@@ -145,8 +145,8 @@ return {
       callback = function(event)
         local map = function(keys, func, desc) vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc }) end
 
-        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-        -- map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+        map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
+        map("gra", vim.lsp.buf.code_action, "Code [A]ction")
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
