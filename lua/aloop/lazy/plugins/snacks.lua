@@ -99,9 +99,7 @@ return {
     { "<leader>dn", function() Snacks.notifier.hide() end, desc = "[D]ismiss All [N]otifications" },
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer (preserve layout)" },
     { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-    { "<leader>gb", function() Snacks.git.blame_line() end, desc = "[G]it [B]lame Line" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "[G]it [B]rowse" },
-    { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
     { mode = { "n", "t" }, "<c-/>", function() Snacks.terminal.toggle() end, desc = "Toggle Terminal" },
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
@@ -125,16 +123,13 @@ return {
       desc = "Fuzzy find files",
     },
     { "<leader>?", function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Search through recent files under cwd" },
+
     -- grep
     { "<leader>/", function() Snacks.picker.lines() end, desc = "Fuzzy search in current buffer" },
     { "<leader>sg", function() Snacks.picker.grep() end, desc = "[S]earch ([G]rep) file contents" },
     { "<leader>sw", function() Snacks.picker.grep_word() end, mode = { "n", "v" }, desc = "[S]earch [W]ord under cursor/selection" },
     { "<leader>sb", function() Snacks.picker.grep_buffers() end, desc = "[S]earch [B]uffers" },
-    -- git
-    { "<leader>gl", function() Snacks.picker.git_log() end, desc = "[G]it [L]og" },
-    { "<leader>gL", function() Snacks.picker.git_log_file() end, desc = "[G]it [L]og (current file)" },
-    { "<leader>gh", function() Snacks.picker.git_log_line() end, desc = "[G]it Log for current line" },
-    { "<leader>gs", function() Snacks.picker.git_status() end, desc = "[G]it [S]tatus" },
+
     -- search
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Search Command History" },
     {
@@ -150,18 +145,26 @@ return {
     { "<leader>sh", function() Snacks.picker.help() end, desc = "[S]earch [H]elp Tags" },
     { "<leader>sm", function() Snacks.picker.man() end, desc = "[S]earch [M]an Pages" },
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "[S]earch [K]ey Maps" },
+
     -- diagnostics
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "[S]how [D]iagnostics" },
     { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "[S]how [D]iagnostics (current buffer)" },
+
     -- LSP
-    { "<leader>gd", function() Snacks.picker.lsp_definitions() end, desc = "[G]oto [D]efinition" },
-    { "<leader>gr", function() Snacks.picker.lsp_references() end, desc = "[G]oto [R]eference" },
-    { "<leader>gi", function() Snacks.picker.lsp_implementations() end, desc = "[G]oto [I]mplementation" },
-    { "<leader>gt", function() Snacks.picker.lsp_type_definitions() end, desc = "[G]oto [T]ype Definition" },
+    { "gd", function() Snacks.picker.lsp_definitions() end, desc = "[G]oto [D]efinition" },
+    { "gD", function() Snacks.picker.lsp_declarations() end, desc = "[G]oto [D]eclaration" },
+    { "grr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "[G]oto [R]eference" },
+    { "gri", function() Snacks.picker.lsp_implementations() end, desc = "[G]oto [I]mplementation" },
+    { "grt", function() Snacks.picker.lsp_type_definitions() end, desc = "[G]oto [T]ype Definition" },
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "[S]how LSP [S]ymbols" },
+    { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "[S]how LSP Workspace [S]ymbols" },
+
     -- misc
     { "<leader>sr", function() Snacks.picker.resume() end, desc = "[R]esume last picker" },
     { "<leader>sp", function() Snacks.picker.projects() end, desc = "[S]earch [P]rojects" },
+    { "<leader>sq", function() Snacks.picker.qflist() end, desc = "[S]earch [Q]uickfix List" },
+    { "<leader>sl", function() Snacks.picker.loclist() end, desc = "[S]earch [L]oclist" },
+    { "<leader>n", function() Snacks.picker.notifications() end, desc = "[N]otifications" },
   },
 
   init = function()
