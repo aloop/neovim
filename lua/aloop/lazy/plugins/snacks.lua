@@ -99,7 +99,7 @@ return {
     { "<leader>dn", function() Snacks.notifier.hide() end, desc = "[D]ismiss All [N]otifications" },
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer (preserve layout)" },
     { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-    { "<leader>gB", function() Snacks.gitbrowse() end, desc = "[G]it [B]rowse" },
+    { "<leader>bg", function() Snacks.gitbrowse() end, desc = "[G]it [B]rowse" },
     { mode = { "n", "t" }, "<c-/>", function() Snacks.terminal.toggle() end, desc = "Toggle Terminal" },
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
