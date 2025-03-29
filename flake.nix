@@ -169,6 +169,7 @@
                       vim.g.is_nix = true
                       vim.g.treesitter_parsers_path = "${treesitterParsersPath}"
                       vim.g.nix_catppuccin_variant = "${cfg.theme.variant}"
+                      vim.g.nix_sqlite3_path = "${pkgs.sqlite.out}/lib/libsqlite3${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}"
                     ''
                     (lib.readFile ./init.lua)
                   ];
@@ -186,7 +187,6 @@
                       fd
                       fzf
                       jq
-                      sqlite
 
                       # Lua
                       lua5_1

@@ -80,6 +80,9 @@ return {
     },
 
     picker = {
+      db = {
+        sqlite3_path = vim.g.nix_sqlite3_path or nil,
+      },
       matcher = {
         sort_empty = true,
       },
