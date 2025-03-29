@@ -22,6 +22,7 @@ end
 return {
   (not vim.g.is_nix and "nvim-treesitter/nvim-treesitter") or nil,
   dir = (vim.g.is_nix and vim.g.treesitter_plugin_path) or nil,
+  name = "nvim-treesitter",
   build = (not vim.g.is_nix and ":TSUpdate") or nil,
   pin = vim.g.is_nix,
   opts_extend = {},
