@@ -20,8 +20,11 @@ if vim.g.is_nix then
 end
 
 return {
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
+  (not vim.g.is_nix and "nvim-treesitter/nvim-treesitter") or nil,
+  dir = (vim.g.is_nix and vim.g.treesitter_plugin_path) or nil,
+  build = (not vim.g.is_nix and ":TSUpdate") or nil,
+  pin = vim.g.is_nix,
+  opts_extend = {},
   opts = {
     ensure_installed = default_parsers,
     auto_install = not vim.g.is_nix,

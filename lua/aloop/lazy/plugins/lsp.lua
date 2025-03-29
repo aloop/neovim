@@ -12,8 +12,8 @@ local handlers = {
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    { "williamboman/mason.nvim", config = true, enabled = not vim.g.is_nix }, -- NOTE: Must be loaded before dependants
-    { "williamboman/mason-lspconfig.nvim", enabled = not vim.g.is_nix },
+    { "williamboman/mason.nvim", config = true, cond = not vim.g.is_nix }, -- NOTE: Must be loaded before dependants
+    { "williamboman/mason-lspconfig.nvim", cond = not vim.g.is_nix },
     { "saghen/blink.cmp" },
   },
   opts = {
