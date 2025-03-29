@@ -35,16 +35,6 @@ require("lazy").setup({
     notify = false,
   },
 
-  -- Was needed for using treesitter installed through home-manager, but I found a better way.
-  -- Keeping here in case it's needed in the future.
-  --
-  -- performance = {
-  --   reset_packpath = not vim.g.is_nix,
-  --   rtp = {
-  --     reset = not vim.g.is_nix,
-  --   },
-  -- },
-
   -- automatically check for plugin updates
   checker = {
     enabled = not vim.g.is_nix,
