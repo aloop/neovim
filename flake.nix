@@ -203,6 +203,7 @@
                       shellcheck
                       shfmt
                       dockerfile-language-server-nodejs
+                      docker-compose-language-service
 
                       # Python
                       isort

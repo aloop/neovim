@@ -1,12 +1,16 @@
-local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
-
 local nix_conf_path = string.format("%s/nixos-config", vim.fn.expand("~"))
 local nix_conf_exists = vim.fn.isdirectory(nix_conf_path) == 1
 local flake_host = "HomeServer"
 
-local handlers = {
-  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+local globalCapabilities = {
+  capabilities = {
+    workspace = {
+      fileOperations = {
+        didRename = true,
+        willRename = true,
+      },
+    },
+  },
 }
 
 return {
@@ -20,8 +24,26 @@ return {
     servers = {
       bashls = {},
       dockerls = {},
+      docker_compose_language_service = {},
       jsonls = {},
-      yamlls = {},
+      yamlls = {
+        redhat = {
+          telemetry = {
+            enabled = false,
+          },
+        },
+        yaml = {
+          format = {
+            enable = false, -- use prettier instead
+          },
+          completion = true,
+          hover = true,
+          validate = true,
+          schemas = {
+            ["kubernetes"] = { "k8s/**/*.yml", "k8s/**/*.yaml" },
+          },
+        },
+      },
       marksman = {},
       astro = {},
       html = {},
@@ -135,10 +157,26 @@ return {
       lua_ls = {
         settings = {
           Lua = {
+            workspace = {
+              checkThirdParty = false,
+            },
+            codeLens = {
+              enable = true,
+            },
             completion = {
               callSnippet = "Replace",
             },
-            diagnostics = { disable = { "missing-fields" } },
+            doc = {
+              privateName = { "^_" },
+            },
+            hint = {
+              enable = true,
+              setType = false,
+              paramType = true,
+              paramName = "Disable",
+              semicolon = "Disable",
+              arrayIndex = "Disable",
+            },
           },
         },
       },
@@ -146,16 +184,13 @@ return {
   },
   config = function(_, opts)
     vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+      group = vim.api.nvim_create_augroup("aloop-lsp-attach", { clear = true }),
       callback = function(event)
         local map = function(keys, func, desc) vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc }) end
 
-        map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
-        map("gra", vim.lsp.buf.code_action, "Code [A]ction")
-
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.server_capabilities.documentHighlightProvider then
-          local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+          local highlight_augroup = vim.api.nvim_create_augroup("aloop-lsp-highlight", { clear = false })
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = event.buf,
             group = highlight_augroup,
@@ -169,18 +204,53 @@ return {
           })
 
           vim.api.nvim_create_autocmd("LspDetach", {
-            group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+            group = vim.api.nvim_create_augroup("aloop-lsp-detach", { clear = true }),
             callback = function(event2)
               vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+              vim.api.nvim_clear_autocmds({ group = "aloop-lsp-highlight", buffer = event2.buf })
             end,
           })
         end
 
-        if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-          map("<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 }) end, "[T]oggle Inlay [H]ints")
+        -- Add mapping to toggle inlay hints
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+          map("<leader>th", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })) end, "[T]oggle Inlay [H]ints")
         end
       end,
+    })
+
+    vim.diagnostic.config({
+      severity_sort = true,
+      float = { border = "rounded", source = "if_many" },
+      underline = { severity = vim.diagnostic.severity.ERROR },
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "󰅚 ",
+          [vim.diagnostic.severity.WARN] = "󰀪 ",
+          [vim.diagnostic.severity.INFO] = "󰋽 ",
+          [vim.diagnostic.severity.HINT] = "󰌶 ",
+        },
+        numhl = {
+          [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+          [vim.diagnostic.severity.WARN] = "WarningMsg",
+          [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+          [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+        },
+      },
+      virtual_text = false,
+      virtual_lines = {
+        source = "if_many",
+        spacing = 2,
+        format = function(diagnostic)
+          local diagnostic_message = {
+            [vim.diagnostic.severity.ERROR] = diagnostic.message,
+            [vim.diagnostic.severity.WARN] = diagnostic.message,
+            [vim.diagnostic.severity.INFO] = diagnostic.message,
+            [vim.diagnostic.severity.HINT] = diagnostic.message,
+          }
+          return diagnostic_message[diagnostic.severity]
+        end,
+      },
     })
 
     -- Ensure the servers and tools above are installed
@@ -201,11 +271,10 @@ return {
     end
 
     local lspconfig = require("lspconfig")
-    local blink = require("blink.cmp")
 
     for server, config in pairs(opts.servers) do
-      config.capabilities = blink.get_lsp_capabilities(config.capabilities)
-      config.handlers = handlers
+      local capabilities = vim.tbl_deep_extend("force", {}, globalCapabilities or {}, config.capabilities or {})
+      config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
       lspconfig[server].setup(config)
     end
