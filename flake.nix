@@ -239,8 +239,7 @@
 
                         # PHP
                         phpactor
-                        php.packages.php-codesniffer
-                        php.packages.php-cs-fixer
+                        # php.packages.php-cs-fixer
                       ]
                     ))
 
