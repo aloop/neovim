@@ -67,9 +67,9 @@ smap("v", "yc", "ygvgc`>p", "Duplicate selection and comment out original select
 smap("n", "<C-c>", "ciw")
 
 -- Handle common git merge conflicts
-smap("n", "<leader>gcu", "dd/|||<CR>0v/>>><CR>$x", "[G]it [C]onflict Choose [U]pstream")
-smap("n", "<leader>gcb", "0v/|||<CR>$x/====<CR>0v/>>><CR>$x", "[G]it [C]onflict Choose [B]ase")
-smap("n", "<leader>gcs", "0v/====<CR>$x/>>><CR>dd", "[G]it [C]onflict Choose [S]tashed")
+smap("n", "<leader>gmcu", "dd/|||<CR>0v/>>><CR>$x", "[G]it [C]onflict Choose [U]pstream")
+smap("n", "<leader>gmcu", "0v/|||<CR>$x/====<CR>0v/>>><CR>$x", "[G]it [C]onflict Choose [B]ase")
+smap("n", "<leader>gmcs", "0v/====<CR>$x/>>><CR>dd", "[G]it [C]onflict Choose [S]tashed")
 
 -- Block insert in line visual mode
 smap("x", "I", function() return vim.fn.mode() == "V" and "^<C-v>I" or "I" end, "", { expr = true })

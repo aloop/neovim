@@ -1,6 +1,10 @@
 return {
   "echasnovski/mini.nvim",
   version = false,
+  keys = {
+    { "<leader>gcc", "<cmd>Git commit<cr>", desc = "[g]it [c]ommit" },
+    { "<leader>gca", "<cmd>Git commit --amend --no-edit<cr>", desc = "[g]it [c]ommit [a]mend" },
+  },
   config = function()
     local function macro_recording()
       local reg = vim.fn.reg_recording()
@@ -18,6 +22,7 @@ return {
     require("mini.surround").setup()
     require("mini.splitjoin").setup()
     require("mini.move").setup()
+    require("mini.git").setup()
     require("mini.sessions").setup({
       autoread = true,
     })
