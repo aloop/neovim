@@ -23,6 +23,12 @@ smap("n", "<leader>Z", "<cmd>redo<cr>", "Redo")
 smap("n", "<leader>v", "<C-w>v<C-w>l", "Open a vertical split and focus it")
 smap("n", "<leader>V", "<C-w>s<C-w>l", "Open a horizontal split and focus it")
 
+-- Split navigation
+smap("n", "<c-h>", "<cmd>wincmd h<cr>")
+smap("n", "<c-j>", "<cmd>wincmd j<cr>")
+smap("n", "<c-k>", "<cmd>wincmd k<cr>")
+smap("n", "<c-l>", "<cmd>wincmd l<cr>")
+
 -- Buffer navigation
 smap("n", "<A-h>", "<cmd>bp<cr>", "Go to previous buffer")
 smap("n", "<A-l>", "<cmd>bn<cr>", "Go to next buffer")
