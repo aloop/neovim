@@ -16,8 +16,6 @@ local globalCapabilities = {
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    { "williamboman/mason.nvim", config = true, cond = not vim.g.is_nix }, -- NOTE: Must be loaded before dependants
-    { "williamboman/mason-lspconfig.nvim", cond = not vim.g.is_nix },
     { "saghen/blink.cmp" },
   },
   opts = {
@@ -253,30 +251,12 @@ return {
       },
     })
 
-    -- Ensure the servers and tools above are installed
-    --  To check the current status of installed tools and/or manually install
-    --  other tools, you can run
-    --    :Mason
-    --
-    --  You can press `g?` for help in this menu.
-    if not vim.g.is_nix then
-      require("mason").setup()
-
-      local ensure_installed = vim.tbl_keys(opts.servers or {})
-      vim.list_extend(ensure_installed, {
-        "stylua",
-      })
-
-      require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
-    end
-
-    local lspconfig = require("lspconfig")
-
     for server, config in pairs(opts.servers) do
       local capabilities = vim.tbl_deep_extend("force", {}, globalCapabilities or {}, config.capabilities or {})
       config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
-      lspconfig[server].setup(config)
+      vim.lsp.config(server, config)
+      vim.lsp.enable(server)
     end
   end,
 }
