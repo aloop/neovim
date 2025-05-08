@@ -1,6 +1,7 @@
 return {
   "stevearc/oil.nvim",
   dependencies = { "echasnovski/mini.nvim" },
+  lazy = false,
   keys = {
     { "-", "<cmd>Oil --float<cr>", desc = "Open directory of current buffer in Oil" },
   },
