@@ -217,6 +217,8 @@ return {
       end,
     })
 
+    vim.lsp.set_log_level("off")
+
     vim.diagnostic.config({
       severity_sort = true,
       float = { border = "rounded", source = "if_many" },
